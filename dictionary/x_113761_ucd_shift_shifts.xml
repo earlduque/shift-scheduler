@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<database>
+    <element label="Shifts" max_length="40" name="x_113761_ucd_shift_shifts" type="collection">
+        <element label="Assigned to" mandatory="true" max_length="32" name="assigned_to" reference="sys_user" type="reference"/>
+        <element label="Assignment group" mandatory="true" max_length="32" name="assignment_group" reference="sys_user_group" type="reference"/>
+        <element label="End" mandatory="true" max_length="40" name="end" type="glide_date_time"/>
+        <element label="Manager" mandatory="true" max_length="32" name="manager" reference="sys_user" type="reference"/>
+        <element label="Mandatory" max_length="40" name="mandatory" type="boolean"/>
+        <element attributes="ignore_filter_on_new=true" default="javascript:global.getNextObjNumberPadded();" label="Number" max_length="40" name="number" type="string"/>
+        <element label="Number of people on shift" max_length="40" name="number_of_people_on_shift" type="integer"/>
+        <element label="Number of shifts to be created in advance" max_length="40" name="number_of_shifts_to_be_created_in_advance" type="integer"/>
+        <element label="Start" mandatory="true" max_length="40" name="start" type="glide_date_time"/>
+        <element choice="1" default="Shift" label="Type" max_length="40" name="type" type="choice">
+            <choice>
+                <element label="Shift" sequence="10" value="Shift"/>
+                <element label="Template" sequence="20" value="Template"/>
+            </choice>
+        </element>
+        <index name="index">
+            <element name="assignment_group"/>
+        </index>
+        <index name="index2">
+            <element name="manager"/>
+        </index>
+        <index name="index3">
+            <element name="assigned_to"/>
+        </index>
+    </element>
+</database>
