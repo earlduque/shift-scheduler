@@ -23,7 +23,20 @@
         <name>Take Shift</name>
         <onclick/>
         <order>100</order>
-        <script><![CDATA[// When this button is pressed the assigned to field of a shift is given the sys id of the current user]]></script>
+        <script><![CDATA[// When this button is pressed the assigned to field of a shift is given the sys id of the current user
+takeShift();
+
+function takeShift() {
+	var currUser = '6816f79cc0a8016401c5a33be04be441';
+	var currShift = '22565b1edb502300de3abd51399619b5';
+	var ga = new GlideAjax('TakeShiftUIAction');
+	ga.addParam('sysparm_name', 'getUser');
+	ga.addParam('user', currUser);
+	ga.addParam('shift', currShift);
+	ga.getXML();
+}
+
+]]></script>
         <show_insert>true</show_insert>
         <show_multiple_update>false</show_multiple_update>
         <show_query>false</show_query>
@@ -34,7 +47,7 @@
         <sys_domain>global</sys_domain>
         <sys_domain_path>/</sys_domain_path>
         <sys_id>f3e6df1edb502300de3abd51399619b2</sys_id>
-        <sys_mod_count>2</sys_mod_count>
+        <sys_mod_count>6</sys_mod_count>
         <sys_name>Take Shift</sys_name>
         <sys_overrides/>
         <sys_package display_value="UCD Shift Scheduler" source="x_113761_ucd_shift">7a5fd304db102300de3abd5139961929</sys_package>
@@ -42,7 +55,7 @@
         <sys_scope display_value="UCD Shift Scheduler">7a5fd304db102300de3abd5139961929</sys_scope>
         <sys_update_name>sys_ui_action_f3e6df1edb502300de3abd51399619b2</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2018-09-04 20:45:06</sys_updated_on>
+        <sys_updated_on>2018-09-04 22:13:55</sys_updated_on>
         <table>x_113761_ucd_shift_shifts</table>
         <ui11_compatible>true</ui11_compatible>
         <ui16_compatible>false</ui16_compatible>
