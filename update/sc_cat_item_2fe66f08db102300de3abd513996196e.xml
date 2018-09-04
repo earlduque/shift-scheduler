@@ -10,7 +10,7 @@
         <delivery_plan/>
         <delivery_plan_script/>
         <delivery_time>1970-01-03 00:00:00</delivery_time>
-        <description/>
+        <description><![CDATA[<p> <br /></p>]]></description>
         <entitlement_script/>
         <group/>
         <icon/>
@@ -49,14 +49,14 @@
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2018-08-28 21:41:22</sys_created_on>
         <sys_id>2fe66f08db102300de3abd513996196e</sys_id>
-        <sys_mod_count>2</sys_mod_count>
+        <sys_mod_count>3</sys_mod_count>
         <sys_name>Cover my Shift</sys_name>
         <sys_package display_value="UCD Shift Scheduler" source="x_113761_ucd_shift">7a5fd304db102300de3abd5139961929</sys_package>
         <sys_policy/>
         <sys_scope display_value="UCD Shift Scheduler">7a5fd304db102300de3abd5139961929</sys_scope>
         <sys_update_name>sc_cat_item_2fe66f08db102300de3abd513996196e</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2018-08-28 22:54:08</sys_updated_on>
+        <sys_updated_on>2018-09-04 17:14:22</sys_updated_on>
         <template/>
         <type>item</type>
         <use_sc_layout>true</use_sc_layout>
