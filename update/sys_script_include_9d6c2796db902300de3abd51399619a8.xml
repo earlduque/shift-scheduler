@@ -10,10 +10,8 @@
         <script><![CDATA[var TakeShiftUIAction = Class.create();
 TakeShiftUIAction.prototype = Object.extendsObject(global.AbstractAjaxProcessor, {
 	getUser: function() {
-		gs.info("KEVIN7: TEST" );
 		var user = this.getParameter('user');
 		var shift = this.getParameter('shift');
-		
 		if(user && shift){
 			var gr = new GlideRecord('x_113761_ucd_shift_shifts');
 			gr.addQuery('sys_id', shift);
@@ -22,15 +20,8 @@ TakeShiftUIAction.prototype = Object.extendsObject(global.AbstractAjaxProcessor,
 				gr.assigned_to = user;
 				gr.update();
 			}
-			var results = {
-                "message": "Yes"
-            };
-            return JSON.stringify(results);
+
 		}
-		var results = {
-                "message": "No"
-            };
-            return JSON.stringify(results);
 	},
 	type: 'TakeShiftUIAction'
 });]]></script>
@@ -38,13 +29,13 @@ TakeShiftUIAction.prototype = Object.extendsObject(global.AbstractAjaxProcessor,
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2018-09-04 21:51:52</sys_created_on>
         <sys_id>9d6c2796db902300de3abd51399619a8</sys_id>
-        <sys_mod_count>15</sys_mod_count>
+        <sys_mod_count>23</sys_mod_count>
         <sys_name>TakeShiftUIAction</sys_name>
         <sys_package display_value="UCD Shift Scheduler" source="x_113761_ucd_shift">7a5fd304db102300de3abd5139961929</sys_package>
         <sys_policy>read</sys_policy>
         <sys_scope display_value="UCD Shift Scheduler">7a5fd304db102300de3abd5139961929</sys_scope>
         <sys_update_name>sys_script_include_9d6c2796db902300de3abd51399619a8</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2018-09-05 20:10:26</sys_updated_on>
+        <sys_updated_on>2018-09-05 23:37:09</sys_updated_on>
     </sys_script_include>
 </record_update>
