@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update table="sp_widget">
+    <sp_widget action="INSERT_OR_UPDATE">
+        <client_script><![CDATA[function() {
+  /* widget controller */
+  var c = this;
+	c.data.hi = 5;
+	c.cover = function(){
+		window.location.href = "google.com";
+	}
+}]]></client_script>
+        <controller_as>c</controller_as>
+        <css/>
+        <data_table>sp_instance</data_table>
+        <demo_data/>
+        <description/>
+        <docs/>
+        <field_list/>
+        <has_preview>true</has_preview>
+        <id>shift_scheduler</id>
+        <internal>false</internal>
+        <link/>
+        <name>Shift Scheduler</name>
+        <option_schema/>
+        <public>false</public>
+        <roles/>
+        <script><![CDATA[(function() {
+	data.shifts = getShifts();
+	
+	//need to filter to opening users group
+	function getShifts() {
+		var results = [];
+		var now = new GlideDateTime();
+		var gr = new GlideRecord('x_113761_ucd_shift_shifts');
+		gr.orderBy("start");
+		gr.query();
+		
+		while (gr.next()) {
+			if (!$sp.canReadRecord(gr))
+				continue;
+			//Date Time var apparently not a GlideDateTime
+			
+			var gdt = new GlideDateTime(gr.start);
+
+			//All weeks begin on sunday. if this week is current week
+			if(gdt.getWeekOfYearUTC() == now.getWeekOfYearUTC()){
+				var shift = {}
+				//Get record information
+				$sp.getRecordDisplayValues(shift, gr, 'assigned_to,start,end,sys_id');
+				//Day of week as a num. 1 = Monday, 2 = tuesday
+				shift.day = gdt.getDayOfWeekLocalTime();
+				results.push(shift)
+			}
+		}				
+		return results;
+	}
+})();]]></script>
+        <servicenow>false</servicenow>
+        <sys_class_name>sp_widget</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2018-09-11 18:02:12</sys_created_on>
+        <sys_id>b52bf26cdb202300de3abd51399619b8</sys_id>
+        <sys_mod_count>95</sys_mod_count>
+        <sys_name>Shift Scheduler</sys_name>
+        <sys_package display_value="UCD Shift Scheduler" source="x_113761_ucd_shift">7a5fd304db102300de3abd5139961929</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="UCD Shift Scheduler">7a5fd304db102300de3abd5139961929</sys_scope>
+        <sys_update_name>sp_widget_b52bf26cdb202300de3abd51399619b8</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2018-09-11 23:21:54</sys_updated_on>
+        <template><![CDATA[<div class="panel panel-primary">
+ <div class="panel-heading">List Shifts</div>
+ <div class="panel-body" ng-repeat="i in [7,1,2,3,4,5,6]">{{i}}
+   <ul class="list-group result-container">
+     <li class="list-group-item" ng-repeat="shift in c.data.shifts" ng-if="shift.day ==i">
+       <a href ng-if="shift.assigned_to == ''">Open</a>
+       <a href ng-click="c.cover()">{{shift.assigned_to}} {{count}}</a>
+       <span class="pull-right">{{shift.end}}</span>
+       <span class="pull-right">{{shift.start}}</span>
+     </li>
+   </ul>
+ </div>
+</div>]]></template>
+    </sp_widget>
+</record_update>

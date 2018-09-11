@@ -5,7 +5,7 @@
         <active>true</active>
         <client>true</client>
         <comments/>
-        <condition/>
+        <condition>current.assigned_to == ""</condition>
         <form_action>true</form_action>
         <form_button>true</form_button>
         <form_context_menu>false</form_context_menu>
@@ -21,26 +21,18 @@
         <list_save_with_form_button>false</list_save_with_form_button>
         <list_style/>
         <name>Take Shift</name>
-        <onclick>onclick()</onclick>
+        <onclick>myonclick()</onclick>
         <order>100</order>
         <script><![CDATA[// When this button is pressed the assigned to field of a shift is given the sys id of the current user
-function onclick() {
+function myonclick() {
 	var currUser = g_user.userID;
 	var currShift = g_form.getUniqueValue();
 	var ga = new GlideAjax('TakeShiftUIAction');
-	alert("I am Running");
 	ga.addParam('sysparm_name', 'getUser');
 	ga.addParam('user', currUser);
 	ga.addParam('shift', currShift);
 	ga.getXML();
 }
-
-// function callBack(response) {
-// // 	var answer = response.responseXML.documentElement.getAttribute('answer');
-// //     var response_data = JSON.parse(answer);
-// //     alert(response_data.message);
-// }
-
 ]]></script>
         <show_insert>false</show_insert>
         <show_multiple_update>false</show_multiple_update>
@@ -52,7 +44,7 @@ function onclick() {
         <sys_domain>global</sys_domain>
         <sys_domain_path>/</sys_domain_path>
         <sys_id>f3e6df1edb502300de3abd51399619b2</sys_id>
-        <sys_mod_count>52</sys_mod_count>
+        <sys_mod_count>58</sys_mod_count>
         <sys_name>Take Shift</sys_name>
         <sys_overrides/>
         <sys_package display_value="UCD Shift Scheduler" source="x_113761_ucd_shift">7a5fd304db102300de3abd5139961929</sys_package>
@@ -60,7 +52,7 @@ function onclick() {
         <sys_scope display_value="UCD Shift Scheduler">7a5fd304db102300de3abd5139961929</sys_scope>
         <sys_update_name>sys_ui_action_f3e6df1edb502300de3abd51399619b2</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2018-09-11 16:37:14</sys_updated_on>
+        <sys_updated_on>2018-09-11 17:01:56</sys_updated_on>
         <table>x_113761_ucd_shift_shifts</table>
         <ui11_compatible>true</ui11_compatible>
         <ui16_compatible>false</ui16_compatible>
