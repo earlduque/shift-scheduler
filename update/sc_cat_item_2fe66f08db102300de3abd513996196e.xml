@@ -2,7 +2,7 @@
 <record_update table="sc_cat_item">
     <sc_cat_item action="INSERT_OR_UPDATE">
         <active>true</active>
-        <availability>on_desktop</availability>
+        <availability>on_both</availability>
         <billable>false</billable>
         <category/>
         <cost>0</cost>
@@ -13,6 +13,7 @@
         <description/>
         <entitlement_script/>
         <group/>
+        <hide_sp>false</hide_sp>
         <icon/>
         <ignore_price>true</ignore_price>
         <image/>
@@ -24,7 +25,7 @@
         <mobile_picture_type>use_desktop_picture</mobile_picture_type>
         <model/>
         <name>Cover my Shift</name>
-        <no_cart>false</no_cart>
+        <no_cart>true</no_cart>
         <no_order>false</no_order>
         <no_order_now>false</no_order_now>
         <no_proceed_checkout>false</no_proceed_checkout>
@@ -49,14 +50,14 @@
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2018-08-28 21:41:22</sys_created_on>
         <sys_id>2fe66f08db102300de3abd513996196e</sys_id>
-        <sys_mod_count>4</sys_mod_count>
+        <sys_mod_count>6</sys_mod_count>
         <sys_name>Cover my Shift</sys_name>
         <sys_package display_value="UCD Shift Scheduler" source="x_113761_ucd_shift">7a5fd304db102300de3abd5139961929</sys_package>
         <sys_policy/>
         <sys_scope display_value="UCD Shift Scheduler">7a5fd304db102300de3abd5139961929</sys_scope>
         <sys_update_name>sc_cat_item_2fe66f08db102300de3abd513996196e</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2018-09-04 17:19:56</sys_updated_on>
+        <sys_updated_on>2018-10-05 19:55:50</sys_updated_on>
         <template/>
         <type>item</type>
         <use_sc_layout>true</use_sc_layout>
@@ -64,7 +65,7 @@
         <visible_bundle>true</visible_bundle>
         <visible_guide>true</visible_guide>
         <visible_standalone>true</visible_standalone>
-        <workflow display_value="Cover for me">f187ff00db502300de3abd5139961964</workflow>
+        <workflow display_value="">f187ff00db502300de3abd5139961964</workflow>
     </sc_cat_item>
     <sys_translated_text action="delete_multiple" query="documentkey=2fe66f08db102300de3abd513996196e"/>
     <fx_price action="delete_multiple" query="id=2fe66f08db102300de3abd513996196e"/>

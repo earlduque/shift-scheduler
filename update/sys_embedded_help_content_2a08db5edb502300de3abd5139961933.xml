@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<record_update table="sys_embedded_help_content">
+<record_update sys_domain="global" table="sys_embedded_help_content">
     <sys_embedded_help_content action="INSERT_OR_UPDATE">
         <active>true</active>
         <category>service-catalog</category>
@@ -16,6 +16,8 @@
         <sys_class_name>sys_embedded_help_content</sys_class_name>
         <sys_created_by>system</sys_created_by>
         <sys_created_on>2018-09-04 20:22:05</sys_created_on>
+        <sys_domain>global</sys_domain>
+        <sys_domain_path>/</sys_domain_path>
         <sys_id>2a08db5edb502300de3abd5139961933</sys_id>
         <sys_mod_count>0</sys_mod_count>
         <sys_name>catalog_ui_policy_list-normal</sys_name>
