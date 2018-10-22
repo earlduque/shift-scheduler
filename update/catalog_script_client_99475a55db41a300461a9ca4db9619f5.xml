@@ -18,21 +18,33 @@
         <name>If URL variables</name>
         <order/>
         <script><![CDATA[function onLoad() {
-   //Type appropriate comment here, and begin script below
-   
-}
+	//Type appropriate comment here, and begin script below
+	
+	var URL = top.location + "";
+	var shiftid = "";
+	var trade = false;
+	for(var i = URL.length; i >= 0 ; i--){
+		var compare = URL.substring(i-7, i);
+		if(compare == "shiftid"){
+			shiftid = URL.substring(i+1, URL.length);
+			trade = true;
+			break;
+		} else if(compare == "coverid") {
+			shiftid = URL.substring(i+1, URL.length);
+			trade = false;
+			break;
+		}
+	}
+	if(trade) { // If the user requests a trade
+		g_form.setValue('u_type', 'trade');
+		g_form.setValue('u_trade_shifts', shiftid);
+		
+	} else {
 
-function getParameterValue(name) {
-    //parse the URL
-    name = name.replace(/[\[]/, "\\\[").replace(/[\]]/, "\\\]");
-    var regexS = "[\\?&]" + name + "=([^&#]*)";
-    var regex = new RegExp(regexS);
-    var results = regex.exec(top.location);
-    if (results == null) {
-        return "";
-    } else {
-        return unescape(results[1]);
-    }
+		g_form.setValue('u_type', 'cover');
+		g_form.setValue('u_shifts', shiftid);
+	}
+	
 }]]></script>
         <sys_class_name>catalog_script_client</sys_class_name>
         <sys_created_by>admin</sys_created_by>
@@ -40,7 +52,7 @@ function getParameterValue(name) {
         <sys_domain>global</sys_domain>
         <sys_domain_path>/</sys_domain_path>
         <sys_id>99475a55db41a300461a9ca4db9619f5</sys_id>
-        <sys_mod_count>0</sys_mod_count>
+        <sys_mod_count>62</sys_mod_count>
         <sys_name>If URL variables</sys_name>
         <sys_overrides/>
         <sys_package display_value="UCD Shift Scheduler" source="x_113761_ucd_shift">7a5fd304db102300de3abd5139961929</sys_package>
@@ -48,7 +60,7 @@ function getParameterValue(name) {
         <sys_scope display_value="UCD Shift Scheduler">7a5fd304db102300de3abd5139961929</sys_scope>
         <sys_update_name>catalog_script_client_99475a55db41a300461a9ca4db9619f5</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2018-10-08 20:01:34</sys_updated_on>
+        <sys_updated_on>2018-10-22 21:16:09</sys_updated_on>
         <table/>
         <type>onLoad</type>
         <ui_type>10</ui_type>

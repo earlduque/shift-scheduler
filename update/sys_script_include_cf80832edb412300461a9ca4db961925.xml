@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update table="sys_script_include">
+    <sys_script_include action="INSERT_OR_UPDATE">
+        <access>public</access>
+        <active>true</active>
+        <api_name>x_113761_ucd_shift.GetShift</api_name>
+        <client_callable>true</client_callable>
+        <description/>
+        <name>GetShift</name>
+        <script><![CDATA[var GetShift = Class.create();
+GetShift.prototype = Object.extendsObject(global.AbstractAjaxProcessor,  {
+    //Was pointless to make this function
+	takeShift: function() {
+		var shift = this.getParameter('shift');
+		if(shift){
+			var gr = new GlideRecord('x_113761_ucd_shift_shifts');
+			gr.addQuery('sys_id', shift);
+			gr.query();
+			if(gr.next)
+				return gr;
+		}
+		
+    },
+
+    type: 'GetShift'
+});]]></script>
+        <sys_class_name>sys_script_include</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2018-10-12 20:05:15</sys_created_on>
+        <sys_id>cf80832edb412300461a9ca4db961925</sys_id>
+        <sys_mod_count>18</sys_mod_count>
+        <sys_name>GetShift</sys_name>
+        <sys_package display_value="UCD Shift Scheduler" source="x_113761_ucd_shift">7a5fd304db102300de3abd5139961929</sys_package>
+        <sys_policy>read</sys_policy>
+        <sys_scope display_value="UCD Shift Scheduler">7a5fd304db102300de3abd5139961929</sys_scope>
+        <sys_update_name>sys_script_include_cf80832edb412300461a9ca4db961925</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2018-10-22 20:38:13</sys_updated_on>
+    </sys_script_include>
+</record_update>
