@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<record_update table="sp_widget">
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_widget">
     <sp_widget action="INSERT_OR_UPDATE">
         <category/>
         <client_script><![CDATA[function(glideUserSession) {
@@ -15,13 +14,14 @@
 	c.take = function(shift){
 		//window.open("google.com");
 		//window.location.href = "google.com"
-		glideUserSession.loadCurrentUser().then(function(currentUser) {
-		c.data.userID = currentUser.userID;
-		c.data.takeShift = true;
-		c.data.shiftID = shift.sys_id;
-		c.server.update();
-		});
-	
+		if (confirm("Take this shift?")) {
+			glideUserSession.loadCurrentUser().then(function(currentUser) {
+			c.data.userID = currentUser.userID;
+			c.data.takeShift = true;
+			c.data.shiftID = shift.sys_id;
+			c.server.update();
+			});
+		}
 	}
 	c.cover = function(shift){
 		var URL = "https://dev51362.service-now.com/sp?id=sc_cat_item&sys_id=2fe66f08db102300de3abd513996196e";
@@ -94,14 +94,14 @@
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2018-09-11 18:02:12</sys_created_on>
         <sys_id>b52bf26cdb202300de3abd51399619b8</sys_id>
-        <sys_mod_count>180</sys_mod_count>
+        <sys_mod_count>181</sys_mod_count>
         <sys_name>Shift Scheduler</sys_name>
         <sys_package display_value="UCD Shift Scheduler" source="x_113761_ucd_shift">7a5fd304db102300de3abd5139961929</sys_package>
         <sys_policy/>
         <sys_scope display_value="UCD Shift Scheduler">7a5fd304db102300de3abd5139961929</sys_scope>
         <sys_update_name>sp_widget_b52bf26cdb202300de3abd51399619b8</sys_update_name>
-        <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2018-10-22 23:35:33</sys_updated_on>
+        <sys_updated_by>admin-jrose12</sys_updated_by>
+        <sys_updated_on>2019-02-05 00:30:15</sys_updated_on>
         <template><![CDATA[<div class="panel panel-primary">
  <div class="panel-heading">List Shifts</div>
  <div class="panel-body" ng-repeat="i in [7,1,2,3,4,5,6]">{{i}}
