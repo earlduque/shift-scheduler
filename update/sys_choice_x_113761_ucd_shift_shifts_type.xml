@@ -1,4 +1,5 @@
-<?xml version="1.0" encoding="UTF-8"?><record_update>
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update>
     <sys_choice action="INSERT_OR_UPDATE" field="type" table="x_113761_ucd_shift_shifts" version="3">
         <sys_choice action="INSERT_OR_UPDATE">
             <dependent_value/>
@@ -44,7 +45,7 @@
             <sys_class_name>sys_choice_set</sys_class_name>
             <sys_created_by>admin</sys_created_by>
             <sys_created_on>2018-08-28 21:22:51</sys_created_on>
-            <sys_id>e99b18c84fa32300da52045e9310c75f</sys_id>
+            <sys_id>5e7eb914db2323005796924bdb9619e5</sys_id>
             <sys_mod_count>0</sys_mod_count>
             <sys_name>type</sys_name>
             <sys_package display_value="UCD Shift Scheduler" source="x_113761_ucd_shift">7a5fd304db102300de3abd5139961929</sys_package>
