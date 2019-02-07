@@ -5,7 +5,15 @@
         <client_script><![CDATA[function(glideUserSession) {
   /* widget controller */
   var c = this;
-	c.data.hi = 5;
+	//Convert numbers to days of week
+	c.weekday=new Array(8);
+	c.weekday[1]="Monday";
+	c.weekday[2]="Tuesday";
+	c.weekday[3]="Wednesday";
+	c.weekday[4]="Thursday";
+	c.weekday[5]="Friday";
+	c.weekday[6]="Saturday";
+	c.weekday[7]="Sunday";
 	//alert(c.data.currUser);
 	c.trade = function(shift){
 		var URL = "https://dev51362.service-now.com/sp?id=sc_cat_item&sys_id=2fe66f08db102300de3abd513996196e";
@@ -95,17 +103,17 @@
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2018-09-11 18:02:12</sys_created_on>
         <sys_id>b52bf26cdb202300de3abd51399619b8</sys_id>
-        <sys_mod_count>181</sys_mod_count>
+        <sys_mod_count>190</sys_mod_count>
         <sys_name>Shift Scheduler</sys_name>
         <sys_package display_value="UCD Shift Scheduler" source="x_113761_ucd_shift">7a5fd304db102300de3abd5139961929</sys_package>
         <sys_policy/>
         <sys_scope display_value="UCD Shift Scheduler">7a5fd304db102300de3abd5139961929</sys_scope>
         <sys_update_name>sp_widget_b52bf26cdb202300de3abd51399619b8</sys_update_name>
-        <sys_updated_by>admin-jrose12</sys_updated_by>
-        <sys_updated_on>2019-02-05 00:30:15</sys_updated_on>
+        <sys_updated_by>admin-Kevin</sys_updated_by>
+        <sys_updated_on>2019-02-07 00:16:32</sys_updated_on>
         <template><![CDATA[<div class="panel panel-primary">
  <div class="panel-heading">List Shifts</div>
- <div class="panel-body" ng-repeat="i in [7,1,2,3,4,5,6]">{{i}}
+ <div class="panel-body" ng-repeat="i in [7,1,2,3,4,5,6]">{{c.weekday[i]}}
    <ul class="list-group result-container">
      <li class="list-group-item" ng-repeat="shift in c.data.shifts" ng-if="shift.day ==i">
        <a href ng-if="shift.assigned_to == ''" ng-click = c.take(shift)>Open</a>
