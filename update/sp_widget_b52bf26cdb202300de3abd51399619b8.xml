@@ -6,14 +6,9 @@
   /* widget controller */
   var c = this;
 	//Convert numbers to days of week
-	c.weekday=new Array(8);
-	c.weekday[1]="Monday";
-	c.weekday[2]="Tuesday";
-	c.weekday[3]="Wednesday";
-	c.weekday[4]="Thursday";
-	c.weekday[5]="Friday";
-	c.weekday[6]="Saturday";
-	c.weekday[7]="Sunday";
+	c.weekday = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+	c.months = [ "January", "February", "March", "April", "May", "June", 
+           "July", "August", "September", "October", "November", "December" ];
 	//alert(c.data.currUser);
 	c.trade = function(shift){
 		var URL = "https://dev51362.service-now.com/sp?id=sc_cat_item&sys_id=2fe66f08db102300de3abd513996196e";
@@ -39,7 +34,53 @@
 	}
 }]]></client_script>
         <controller_as>c</controller_as>
-        <css/>
+        <css>td,
+th {
+    border: 1px solid rgb(190, 190, 190);
+    padding: 10px;
+ 		valign: top;
+}
+
+td {
+    text-align: center;
+  	font-weight: bold;
+  	font-size: 1.5em;
+}
+
+tr:nth-child(even) {
+    background-color: #eee;
+}
+
+th[scope="col"] {
+    background-color: #696969;
+    color: #fff;
+}
+
+th[scope="row"] {
+    background-color: #d7d9f2;
+}
+
+caption {
+    padding: 10px;
+    caption-side: bottom;
+}
+
+table {
+    border-collapse: collapse;
+    border: 2px solid rgb(200, 200, 200);
+    letter-spacing: 1px;
+    font-family: sans-serif;
+    font-size: .8rem;
+  	table-layout: fixed;
+}
+
+.listname{
+	text-align: center;
+}
+.newline {
+  display: block;
+}
+</css>
         <data_table>sp_instance</data_table>
         <demo_data/>
         <description/>
@@ -68,6 +109,17 @@
 		}
 	}
 	
+	
+	
+	var date = new Date();
+	data.month = date.getMonth(); //Edge case of multi month weeks
+	data.year = date.getFullYear();
+	data.week = [];
+	var start = date.getDate() - date.getDay();
+	for(var i = 0; i < 7; i++){
+		var day = start + i;
+		data.week.push((data.month + 1) + "/" + day);
+	}
 	data.shifts = getShifts();
 	data.currUser = gs.getUserDisplayName();
 	//need to filter to opening users group
@@ -90,11 +142,23 @@
 				var shift = {}
 				//Get record information
 				$sp.getRecordDisplayValues(shift, gr, 'assigned_to,start,end,sys_id');
+				shift.start = convertTime(shift.start);
+				shift.end = convertTime(shift.end);
 				//Day of week as a num. 1 = Monday, 2 = tuesday
-				shift.day = gdt.getDayOfWeekLocalTime();
+				shift.day = gdt.getDayOfWeekLocalTime() - 1;
 				results.push(shift);
 			}
-		}				
+		}
+		
+		function convertTime(date){
+			var converted = date.substring(date.length - 8, date.length);
+			var hours = converted.substring(0,2);
+			var minutes = converted.substring(3,5);
+			var ampm = hours >= 12 ? 'pm' : 'am';
+			hours = hours % 12;
+			hours = hours ? hours : 12;
+			return hours + ":" + minutes + ampm;
+		}
 		return results;
 	}
 })();]]></script>
@@ -103,27 +167,37 @@
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2018-09-11 18:02:12</sys_created_on>
         <sys_id>b52bf26cdb202300de3abd51399619b8</sys_id>
-        <sys_mod_count>190</sys_mod_count>
+        <sys_mod_count>319</sys_mod_count>
         <sys_name>Shift Scheduler</sys_name>
         <sys_package display_value="UCD Shift Scheduler" source="x_113761_ucd_shift">7a5fd304db102300de3abd5139961929</sys_package>
         <sys_policy/>
         <sys_scope display_value="UCD Shift Scheduler">7a5fd304db102300de3abd5139961929</sys_scope>
         <sys_update_name>sp_widget_b52bf26cdb202300de3abd51399619b8</sys_update_name>
         <sys_updated_by>admin-Kevin</sys_updated_by>
-        <sys_updated_on>2019-02-07 00:16:32</sys_updated_on>
+        <sys_updated_on>2019-02-14 00:34:21</sys_updated_on>
         <template><![CDATA[<div class="panel panel-primary">
- <div class="panel-heading">List Shifts</div>
- <div class="panel-body" ng-repeat="i in [7,1,2,3,4,5,6]">{{c.weekday[i]}}
-   <ul class="list-group result-container">
-     <li class="list-group-item" ng-repeat="shift in c.data.shifts" ng-if="shift.day ==i">
-       <a href ng-if="shift.assigned_to == ''" ng-click = c.take(shift)>Open</a>
-       <a href ng-if="shift.assigned_to == c.data.currUser" ng-click="c.cover(shift)">{{shift.assigned_to}}</a>
-       <a href ng-if="shift.assigned_to != c.data.currUser" ng-click="c.trade(shift)">{{shift.assigned_to}} {{count}}</a>
-       <span class="pull-right">{{shift.end}}</span>
-       <span class="pull-right">{{shift.start}}</span>
-     </li>
-   </ul>
- </div>
+ <div class="panel-heading">{{c.months[c.data.month]}} {{c.data.year}}</div>
+  <table border="1" width="100%" style="margin: 0px;">
+    <tr>
+    	<td ng-repeat="i in [0,1,2,3,4,5,6]">
+      {{c.weekday[i]}} - {{c.data.week[i]}}
+      </td>
+    </tr>
+    
+    <tr>
+ 		<th ng-repeat="i in [6,0,1,2,3,4,5]">
+   		<div class="list-group result-container">
+    		 <li class="list-group-item listname" ng-repeat="shift in c.data.shifts" ng-if="shift.day ==i">
+     			  <a href ng-if="shift.assigned_to == ''" ng-click = c.take(shift)>Open</a>
+    		    <a href ng-if="shift.assigned_to == c.data.currUser" ng-click="c.cover(shift)">{{shift.assigned_to}}</a>
+     			  <a href ng-if="shift.assigned_to != c.data.currUser" ng-click="c.trade(shift)">{{shift.assigned_to}} {{count}}</a>
+     			  <span class="newline">{{shift.start}}</span>
+      		  <span class="newline">{{shift.end}}</span>
+    	  </li>
+   		</div>
+   </th>
+   </tr>
+ </table>
 </div>]]></template>
     </sp_widget>
 </record_update>
