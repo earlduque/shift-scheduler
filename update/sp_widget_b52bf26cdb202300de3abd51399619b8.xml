@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<record_update table="sp_widget">
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_widget">
     <sp_widget action="INSERT_OR_UPDATE">
         <category/>
         <client_script><![CDATA[function(glideUserSession) {
@@ -9,7 +8,45 @@
 	c.weekday = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 	c.months = [ "January", "February", "March", "April", "May", "June", 
            "July", "August", "September", "October", "November", "December" ];
-	//alert(c.data.currUser);
+	c.numNames = [];
+	for(var i = 0; i < c.data.groupNames.length; i++){
+		c.numNames.push(i);
+	}
+	c.data.option = 0;
+	//alert(c.data.yo);
+	//Set options
+	
+	//Filter shifts
+	c.currentWeek = 0;
+	
+	
+	c.changeWeek = function(changedWeek){
+		//alert(changedWeek);
+		c.currentWeek += changedWeek;
+		c.data.newWeek = c.currentWeek;
+		c.server.update().then(function(){
+		});
+		//alert(c.data.newWeek);
+
+	}
+	
+	c.filteredShift = [];
+	c.filter = function(group){
+		//alert(c.data.groupNames[group] + " " + group);
+		//c.option = group;
+		c.server.update().then(function(){
+		});
+		
+		//c.filteredShift = [];
+		//for(var i = 0; i < c.data.groupNames.length; i++){
+		//	if(c.data.groupNames[i] == group){
+		//		c.filteredShift = c.data.filteredShifts[i];
+		//	}
+		//}
+		//alert(filteredShift);
+	}
+	
+	//On Click Functions
 	c.trade = function(shift){
 		var curURL = top.location + "";
 		var i = 0;
@@ -40,6 +77,7 @@
 		URL += "&coverid=" + shift.sys_id;
 		window.open(URL);
 	}
+	
 }]]></client_script>
         <controller_as>c</controller_as>
         <css>td,
@@ -54,7 +92,10 @@ td {
   	font-weight: bold;
   	font-size: 1.5em;
 }
-
+select{
+    background: rgba(0,0,0,0.3);
+    color:#fff;
+}
 tr:nth-child(even) {
     background-color: #eee;
 }
@@ -119,23 +160,139 @@ table {
 	
 	
 	
-	var date = new Date();
-	data.month = date.getMonth(); //Edge case of multi month weeks
-	data.year = date.getFullYear();
-	data.week = [];
-	var start = date.getDate() - date.getDay();
-	for(var i = 0; i < 7; i++){
-		var day = start + i;
-		data.week.push((data.month + 1) + "/" + day);
-	}
-	data.shifts = getShifts();
+
+	
 	data.currUser = gs.getUserDisplayName();
-	//need to filter to opening users group
-	function getShifts() {
+	data.userID = gs.getUserID();
+	data.groups = getGroups();
+	data.groupNames = getGroupNames(data.groups);
+	//data.option = 0;
+	if(input){
+		var option = 0;
+		var week = 0;
+		if(input.option){
+			option = input.option;
+		}
+		if(input.newWeek){
+			//console.log(newWeek);
+			console.log("Hello: " + input.newWeek);
+			week = input.newWeek;
+		}
+		data.shifts = getShifts(data.groups[option], week);
+	}
+	else {
+		data.shifts = getShifts(data.groups[0], 0);
+		if(input && input.option)
+			data.option = input.option;
+		//data.option = data.groupNames[0];
+	}
+
+	/*
+	data.filteredShifts = getFilteredShifts(data.shifts, data.groupNames);
+	function getFilteredShifts(shifts, groups){
+		var results = [];
+		for(var g = 0; g < groups.length; g++){
+			var filter = [];
+			for(var i = 0; i < shifts.length; i++){
+				if(shifts[i].assignment_group == groups[g]){
+					filter.push(shifts[i]);
+				}
+			}
+			results.push(filter);
+		}
+
+		return results;
+	}
+	*/
+	//Get Groups
+	function getGroups(){
+		var results = [];
+		var gr = new GlideRecord("sys_user_grmember");
+		gr.addQuery("user", data.userID);
+		gr.query();
+		while(gr.next()){
+			results.push(gr.getValue("group"));
+		}
+		
+		return results;
+	}
+	
+	function getGroupNames(groups){
+		var results = [];
+		for(var i = 0; i < groups.length; i++){
+			var gr = new GlideRecord("sys_user_group");
+			gr.addQuery("sys_id", groups[i]);
+			gr.query();
+			if(gr.next()){
+				results.push(gr.getValue("name"));
+			}
+		}
+		
+		return results;
+	}
+	
+	function daysInMonth(m, y) { // m is 0 indexed: 0-11
+    switch (m) {
+        case 1 :
+            return (y % 4 == 0 && y % 100) || y % 400 == 0 ? 29 : 28;
+        case 8 : case 3 : case 5 : case 10 :
+            return 30;
+        default :
+            return 31
+    }
+	}
+
+	function isValid(d, m, y) {
+		return m >= 0 && m < 12 && d > 0 && d <= daysInMonth(m, y);
+	}
+	
+	function getMonday(d) {
+  d = new Date(d);
+  var day = d.getDay(),
+      diff = d.getDate() - day + (day == 0 ? -6:1); // adjust when day is sunday
+  return new Date(d.setDate(diff));
+	}
+	
+	function getStartDate(date){
+		//console.log("1: " + date.getDate());
+		//console.log("2: " + date.getDay());
+		return date.getDate() - date.getDay()
+	}
+	
+	function getShifts(groupID, week) {
+		var currDate = new Date();
+		var date = new Date(currDate.getFullYear(), currDate.getMonth(), currDate.getDate()+(7*week));
+		data.month = date.getMonth(); //Edge case of multi month weeks
+		data.year = date.getFullYear();
+		data.week = [];
+		
+		var start = getStartDate(date);
+		//console.log("Month: " + data.month);
+		//console.log("Year: " + data.year);
+		//console.log("Day: " + start);
+		
+		console.log(getMonday(new Date()).getDay());
+		//var monthAug = 1;
+		var upper = 7
+		for(var i = 0; i < upper; i++){
+			var day = start + i;
+			if(!isValid(day,data.month,data.year)){
+				start = 1;
+				upper -= i;
+				//monthAug++;
+				i = 0;
+				day = start;
+			}
+			//data.week.push((data.month + monthAug) + "/" + day);
+			data.week.push((data.month) + "/" + day);
+
+		}
+		
 		var results = [];
 		var now = new GlideDateTime();
 		var gr = new GlideRecord('x_113761_ucd_shift_shifts');
 		gr.orderBy("start");
+		gr.addQuery("assignment_group", groupID);
 		gr.query();
 		
 		while (gr.next()) {
@@ -146,16 +303,19 @@ table {
 			var gdt = new GlideDateTime(gr.start);
 
 			//All weeks begin on sunday. if this week is current week
-			if(gdt.getWeekOfYearUTC() == now.getWeekOfYearUTC()){
+			//Edit to store all shifts >= weeks
+			if(gdt.getWeekOfYearUTC() == now.getWeekOfYearUTC() + week){
 				var shift = {}
 				//Get record information
-				$sp.getRecordDisplayValues(shift, gr, 'assigned_to,start,end,sys_id');
+				$sp.getRecordDisplayValues(shift, gr, 'assigned_to,start,end,sys_id,assignment_group');
 				shift.start = convertTime(shift.start);
 				shift.end = convertTime(shift.end);
 				//Day of week as a num. 1 = Monday, 2 = tuesday
 				shift.day = gdt.getDayOfWeekLocalTime() - 1;
 				results.push(shift);
 			}
+			
+			//return results;
 		}
 		
 		function convertTime(date){
@@ -175,16 +335,22 @@ table {
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2018-09-11 18:02:12</sys_created_on>
         <sys_id>b52bf26cdb202300de3abd51399619b8</sys_id>
-        <sys_mod_count>333</sys_mod_count>
+        <sys_mod_count>727</sys_mod_count>
         <sys_name>Shift Scheduler</sys_name>
         <sys_package display_value="UCD Shift Scheduler" source="x_113761_ucd_shift">7a5fd304db102300de3abd5139961929</sys_package>
         <sys_policy/>
         <sys_scope display_value="UCD Shift Scheduler">7a5fd304db102300de3abd5139961929</sys_scope>
         <sys_update_name>sp_widget_b52bf26cdb202300de3abd51399619b8</sys_update_name>
-        <sys_updated_by>admin-Kevin</sys_updated_by>
-        <sys_updated_on>2019-02-14 00:48:44</sys_updated_on>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2019-06-14 00:05:05</sys_updated_on>
         <template><![CDATA[<div class="panel panel-primary">
- <div class="panel-heading">{{c.months[c.data.month]}} {{c.data.year}}</div>
+ <div class="panel-heading">{{c.months[c.data.month]}} {{c.data.year}}
+  <select ng-model="c.data.option" ng-change="c.filter(c.data.option)">
+  	<option ng-repeat="i in c.numNames" value = "{{i}}">{{c.data.groupNames[i]}}{{i}}</option>
+	</select>
+  <button type="button" ng-click="c.changeWeek(-1)">Backward!</button>
+  <button type="button" ng-click="c.changeWeek(1)">Forward!</button>
+  </div>
   <table border="1" width="100%" style="margin: 0px;">
     <tr>
     	<td ng-repeat="i in [0,1,2,3,4,5,6]">
@@ -206,6 +372,10 @@ table {
    </th>
    </tr>
  </table>
+</div>
+
+<div>
+  {{c.data.option}} {{data.option}}
 </div>]]></template>
     </sp_widget>
 </record_update>

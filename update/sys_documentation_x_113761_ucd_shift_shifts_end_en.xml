@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<record_update>
+<?xml version="1.0" encoding="UTF-8"?><record_update>
     <sys_documentation element="end" label="End" language="en" table="x_113761_ucd_shift_shifts">
         <sys_documentation action="INSERT_OR_UPDATE">
             <element>end</element>
@@ -12,7 +11,7 @@
             <sys_class_name>sys_documentation</sys_class_name>
             <sys_created_by>admin</sys_created_by>
             <sys_created_on>2018-08-28 21:13:28</sys_created_on>
-            <sys_id>5fa0e344db102300de3abd5139961917</sys_id>
+            <sys_id>aef500581b12330099cefc88cc4bcb92</sys_id>
             <sys_mod_count>0</sys_mod_count>
             <sys_name>End</sys_name>
             <sys_package display_value="UCD Shift Scheduler" source="x_113761_ucd_shift">7a5fd304db102300de3abd5139961929</sys_package>

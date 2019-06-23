@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<record_update>
+<?xml version="1.0" encoding="UTF-8"?><record_update>
     <sys_ui_section caption="" section_id="8ab0a740db102300de3abd5139961907" sys_domain="global" table="x_113761_ucd_shift_shifts" version="3" view="">
         <sys_ui_element action="INSERT_OR_UPDATE">
             <element>assigned_to</element>

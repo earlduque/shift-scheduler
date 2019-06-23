@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<record_update>
+<?xml version="1.0" encoding="UTF-8"?><record_update>
     <sys_documentation element="number_of_people_on_shift" label="Number of people on shift" language="en" table="x_113761_ucd_shift_shifts">
         <sys_documentation action="INSERT_OR_UPDATE">
             <element>number_of_people_on_shift</element>
@@ -12,7 +11,7 @@
             <sys_class_name>sys_documentation</sys_class_name>
             <sys_created_by>admin</sys_created_by>
             <sys_created_on>2018-08-28 21:13:28</sys_created_on>
-            <sys_id>17a0e344db102300de3abd513996191a</sys_id>
+            <sys_id>aaf500581b12330099cefc88cc4bcb96</sys_id>
             <sys_mod_count>0</sys_mod_count>
             <sys_name>Number of people on shift</sys_name>
             <sys_package display_value="UCD Shift Scheduler" source="x_113761_ucd_shift">7a5fd304db102300de3abd5139961929</sys_package>
