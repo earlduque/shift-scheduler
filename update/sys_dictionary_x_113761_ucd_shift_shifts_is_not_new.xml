@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?><record_update>
-    <sys_dictionary action="INSERT_OR_UPDATE" element="" table="x_113761_ucd_shift_shifts">
+    <sys_dictionary action="INSERT_OR_UPDATE" element="is_not_new" table="x_113761_ucd_shift_shifts">
         <active>true</active>
         <array>false</array>
         <array_denormalized>false</array_denormalized>
@@ -14,7 +14,7 @@
         <choice/>
         <choice_field/>
         <choice_table/>
-        <column_label/>
+        <column_label>Is Not New</column_label>
         <comments/>
         <create_roles/>
         <default_value/>
@@ -27,12 +27,12 @@
         <dynamic_creation_script/>
         <dynamic_default_value/>
         <dynamic_ref_qual/>
-        <element/>
+        <element>is_not_new</element>
         <element_reference>false</element_reference>
         <foreign_database/>
         <function_definition/>
         <function_field>false</function_field>
-        <internal_type display_value="Collection">collection</internal_type>
+        <internal_type display_value="">boolean</internal_type>
         <mandatory>false</mandatory>
         <max_length>40</max_length>
         <name>x_113761_ucd_shift_shifts</name>
@@ -52,16 +52,16 @@
         <staged>false</staged>
         <sys_class_name>sys_dictionary</sys_class_name>
         <sys_created_by>admin</sys_created_by>
-        <sys_created_on>2018-08-28 21:13:28</sys_created_on>
-        <sys_id>f340a3092f22330078a1f3ecf699b66a</sys_id>
+        <sys_created_on>2019-07-16 21:33:55</sys_created_on>
+        <sys_id>073531b32fe2330078a1f3ecf699b638</sys_id>
         <sys_mod_count>0</sys_mod_count>
-        <sys_name>x_113761_ucd_shift_shifts</sys_name>
+        <sys_name>Is Not New</sys_name>
         <sys_package display_value="UCD Shift Scheduler" source="x_113761_ucd_shift">7a5fd304db102300de3abd5139961929</sys_package>
         <sys_policy/>
         <sys_scope display_value="UCD Shift Scheduler">7a5fd304db102300de3abd5139961929</sys_scope>
-        <sys_update_name>sys_dictionary_x_113761_ucd_shift_shifts_NULL</sys_update_name>
-        <sys_updated_by>system</sys_updated_by>
-        <sys_updated_on>2019-07-08 16:18:16</sys_updated_on>
+        <sys_update_name>sys_dictionary_x_113761_ucd_shift_shifts_is_not_new</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2019-07-16 21:33:55</sys_updated_on>
         <table_reference>false</table_reference>
         <text_index>false</text_index>
         <unique>false</unique>

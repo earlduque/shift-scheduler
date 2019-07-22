@@ -3,45 +3,52 @@
         <active>true</active>
         <applies_extended>false</applies_extended>
         <condition/>
-        <description>Autofills the manager field based on the selected assignment group</description>
-        <field>assignment_group</field>
+        <description/>
+        <field>end</field>
         <global>true</global>
-        <isolate_script>false</isolate_script>
+        <isolate_script>true</isolate_script>
         <messages/>
-        <name>Autofill manager</name>
+        <name>Validate end date</name>
         <order/>
         <script><![CDATA[function onChange(control, oldValue, newValue, isLoading, isTemplate) {
 	
-	if (isLoading) {
+	if (isLoading || newValue === '') {
       return;
    }
 	
-	// if the assignment group field changes to empty, make manager field empty
-	if (newValue == "") {
-		g_form.clearValue('manager');
-	}
+	var endDateTime = g_form.getValue('end');
 	
-	var assignmentGroup = g_form.getReference('assignment_group', getManagerCallBack);
+	// get rid of the hours, minutes, seconds and milliseconds of each date
+	// so can compare the two dates as dates without time components
+	var endDate = new Date(endDateTime);
+	endDate.setHours(0, 0, 0, 0);
 	
-	function getManagerCallBack(group) {
-		g_form.setValue('manager', group.manager);
+	var now = new Date();
+	now.setHours(0, 0, 0, 0);
+	
+	if (endDate.getTime() < now.getTime()) {
+		g_form.showFieldMsg('end', 'The date selected is in the past, please select the present or a future date.', 'error');
 	}
+	else {
+		g_form.hideFieldMsg();
+	}
+   
 }]]></script>
         <sys_class_name>sys_script_client</sys_class_name>
-        <sys_created_by>admin-jrose12</sys_created_by>
-        <sys_created_on>2019-02-05 18:42:28</sys_created_on>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2019-07-11 21:51:54</sys_created_on>
         <sys_domain>global</sys_domain>
         <sys_domain_path>/</sys_domain_path>
-        <sys_id>8ed40c844f632300da52045e9310c75b</sys_id>
-        <sys_mod_count>2</sys_mod_count>
-        <sys_name>Autofill manager</sys_name>
+        <sys_id>454940922fe2330078a1f3ecf699b668</sys_id>
+        <sys_mod_count>3</sys_mod_count>
+        <sys_name>Validate end date</sys_name>
         <sys_overrides/>
         <sys_package display_value="UCD Shift Scheduler" source="x_113761_ucd_shift">7a5fd304db102300de3abd5139961929</sys_package>
         <sys_policy/>
         <sys_scope display_value="UCD Shift Scheduler">7a5fd304db102300de3abd5139961929</sys_scope>
-        <sys_update_name>sys_script_client_8ed40c844f632300da52045e9310c75b</sys_update_name>
+        <sys_update_name>sys_script_client_454940922fe2330078a1f3ecf699b668</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2019-07-09 16:36:54</sys_updated_on>
+        <sys_updated_on>2019-07-11 21:57:25</sys_updated_on>
         <table>x_113761_ucd_shift_shifts</table>
         <type>onChange</type>
         <ui_type>10</ui_type>

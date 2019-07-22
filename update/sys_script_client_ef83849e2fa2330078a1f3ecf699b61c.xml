@@ -3,45 +3,41 @@
         <active>true</active>
         <applies_extended>false</applies_extended>
         <condition/>
-        <description>Autofills the manager field based on the selected assignment group</description>
-        <field>assignment_group</field>
+        <description/>
+        <field>number_of_shifts_to_be_created_in_advance</field>
         <global>true</global>
-        <isolate_script>false</isolate_script>
+        <isolate_script>true</isolate_script>
         <messages/>
-        <name>Autofill manager</name>
+        <name>Valid number of weeks to create shifts</name>
         <order/>
         <script><![CDATA[function onChange(control, oldValue, newValue, isLoading, isTemplate) {
-	
-	if (isLoading) {
-      return;
-   }
-	
-	// if the assignment group field changes to empty, make manager field empty
-	if (newValue == "") {
-		g_form.clearValue('manager');
+	if (isLoading || newValue === '') {
+		return;
 	}
-	
-	var assignmentGroup = g_form.getReference('assignment_group', getManagerCallBack);
-	
-	function getManagerCallBack(group) {
-		g_form.setValue('manager', group.manager);
+
+	var numShiftsToCreate = g_form.getValue("number_of_shifts_to_be_created_in_advance");
+	if(numShiftsToCreate <= 0){
+		g_form.showFieldMsg('number_of_shifts_to_be_created_in_advance', 'The number of future shifts to create must be greater than 0.', 'error');
+	}
+	else{
+		g_form.hideAllFieldMsgs('number_of_shifts_to_be_created_in_advance');
 	}
 }]]></script>
         <sys_class_name>sys_script_client</sys_class_name>
-        <sys_created_by>admin-jrose12</sys_created_by>
-        <sys_created_on>2019-02-05 18:42:28</sys_created_on>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2019-07-11 21:33:01</sys_created_on>
         <sys_domain>global</sys_domain>
         <sys_domain_path>/</sys_domain_path>
-        <sys_id>8ed40c844f632300da52045e9310c75b</sys_id>
+        <sys_id>ef83849e2fa2330078a1f3ecf699b61c</sys_id>
         <sys_mod_count>2</sys_mod_count>
-        <sys_name>Autofill manager</sys_name>
+        <sys_name>Valid number of weeks to create shifts</sys_name>
         <sys_overrides/>
         <sys_package display_value="UCD Shift Scheduler" source="x_113761_ucd_shift">7a5fd304db102300de3abd5139961929</sys_package>
         <sys_policy/>
         <sys_scope display_value="UCD Shift Scheduler">7a5fd304db102300de3abd5139961929</sys_scope>
-        <sys_update_name>sys_script_client_8ed40c844f632300da52045e9310c75b</sys_update_name>
+        <sys_update_name>sys_script_client_ef83849e2fa2330078a1f3ecf699b61c</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2019-07-09 16:36:54</sys_updated_on>
+        <sys_updated_on>2019-07-17 17:15:47</sys_updated_on>
         <table>x_113761_ucd_shift_shifts</table>
         <type>onChange</type>
         <ui_type>10</ui_type>

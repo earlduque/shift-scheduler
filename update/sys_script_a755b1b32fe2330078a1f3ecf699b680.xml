@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update sys_domain="global" table="sys_script">
+    <sys_script action="INSERT_OR_UPDATE">
+        <abort_action>false</abort_action>
+        <access>package_private</access>
+        <action_delete>false</action_delete>
+        <action_insert>true</action_insert>
+        <action_query>false</action_query>
+        <action_update>false</action_update>
+        <active>true</active>
+        <add_message>false</add_message>
+        <advanced>true</advanced>
+        <change_fields>false</change_fields>
+        <client_callable>false</client_callable>
+        <collection>x_113761_ucd_shift_shifts</collection>
+        <condition/>
+        <description/>
+        <execute_function>false</execute_function>
+        <filter_condition table="x_113761_ucd_shift_shifts">is_not_new=false^EQ<item endquery="false" field="is_not_new" goto="false" newquery="false" operator="=" or="false" value="false"/>
+            <item endquery="true" field="" goto="false" newquery="false" operator="=" or="false" value=""/>
+        </filter_condition>
+        <is_rest>false</is_rest>
+        <message/>
+        <name>Duplicate Templates</name>
+        <order>100</order>
+        <priority>100</priority>
+        <rest_method/>
+        <rest_method_text/>
+        <rest_service/>
+        <rest_service_text/>
+        <rest_variables/>
+        <role_conditions/>
+        <script><![CDATA[(function executeRule(current, previous /*null when async*/) {
+	
+	// Add your code here
+	if(current.getValue("type") == "Template"){
+		var numberToDuplicate = current.getValue("number_of_people_on_shift");
+		var start = current.start.getDisplayValue();
+		var end = current.end.getDisplayValue();
+		var assigned_to = current.getValue("assigned_to");
+		var assignment_group = current.getValue("assignment_group");
+		var manager = current.getValue("manager");
+		var number_of_shifts_to_be_created_in_advance = current.getValue("number_of_shifts_to_be_created_in_advance");
+		var type = current.getValue("type");
+		var mandatory = current.getValue("mandatory");
+		for(var i = 0; i < numberToDuplicate - 1; i++){
+			var newEntry = new GlideRecord("x_113761_ucd_shift_shifts");
+			newEntry.initialize();
+			newEntry.start = start;
+			newEntry.end = end;
+			newEntry.assigned_to = "";
+			newEntry.assignment_group = assignment_group;
+			newEntry.manager = manager;
+			newEntry.type = type;
+			newEntry.number_of_people_on_shift = numberToDuplicate;
+			newEntry.number_of_shifts_to_be_created_in_advance = number_of_shifts_to_be_created_in_advance;
+			newEntry.mandatory = mandatory;
+			newEntry.is_not_new = true;
+			newEntry.insert();
+			// 			var ga = new GlideAjax("DuplicateEntries");
+			
+			// 			ga.addParam('sysparm_name', 'duplicate');
+			// 			ga.addParam('sysparm_number', current.getValue("number_of_people_on_shift"));
+			// 			ga.addParam('sysparm_start', current.getValue("start"));
+			// 			ga.addParam('sysparm_end', current.getValue("end"));
+			// 			ga.addParam('sysparm_assigned_to', current.getValue("assigned_to"));
+			// 			ga.addParam('sysparm_assignment_group', current.getValue("assignment_group"));
+			// 			ga.addParam('sysparm_manager', current.getValue("manager"));
+			// 			ga.addParam('sysparm_number_of_shifts_to_be_created_in_advance', current.getValue("number_of_shifts_to_be_created_in_advance"));
+			// 			ga.addParam('sysparm_type', current.getValue("type"));
+			// 			ga.addParam('sysparm_mandatory', current.getValue("mandatory"));
+			
+			// 			ga.getXML();
+		}
+	}
+})(current, previous);]]></script>
+        <sys_class_name>sys_script</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2019-07-16 21:36:20</sys_created_on>
+        <sys_domain>global</sys_domain>
+        <sys_domain_path>/</sys_domain_path>
+        <sys_id>a755b1b32fe2330078a1f3ecf699b680</sys_id>
+        <sys_mod_count>20</sys_mod_count>
+        <sys_name>Duplicate Templates</sys_name>
+        <sys_overrides/>
+        <sys_package display_value="UCD Shift Scheduler" source="x_113761_ucd_shift">7a5fd304db102300de3abd5139961929</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="UCD Shift Scheduler">7a5fd304db102300de3abd5139961929</sys_scope>
+        <sys_update_name>sys_script_a755b1b32fe2330078a1f3ecf699b680</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2019-07-17 19:17:14</sys_updated_on>
+        <template>is_not_new=true^EQ</template>
+        <when>before</when>
+    </sys_script>
+    <sys_translated_text action="delete_multiple" query="documentkey=a755b1b32fe2330078a1f3ecf699b680"/>
+</record_update>

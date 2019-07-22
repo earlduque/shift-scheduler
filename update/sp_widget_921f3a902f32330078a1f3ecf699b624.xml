@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_widget">
+    <sp_widget action="INSERT_OR_UPDATE">
+        <category>custom</category>
+        <client_script><![CDATA[function() {
+  /* widget controller */
+  var c = this;
+}]]></client_script>
+        <controller_as>c</controller_as>
+        <css/>
+        <data_table>sp_instance</data_table>
+        <demo_data/>
+        <description/>
+        <docs/>
+        <field_list/>
+        <has_preview>true</has_preview>
+        <id/>
+        <internal>false</internal>
+        <link><![CDATA[function link(scope, element, attrs, controller) {
+  
+}]]></link>
+        <name>Embedded Shift Create NewForm</name>
+        <option_schema/>
+        <public>false</public>
+        <roles/>
+        <script><![CDATA[(function() {
+	if (input.keywords != null && input.keywords != '')
+		data.items = getCatalogItems(input.keywords);
+	
+	function getCatalogItems(keywords) {
+		var sc = new GlideRecord('sc_cat_item');
+		sc.addActiveQuery();
+		sc.addQuery('123TEXTQUERY321', keywords);
+		sc.addQuery('sys_class_name', 'NOT IN', 'sc_cat_item_wizard,sc_cat_item_content');
+		sc.addQuery('sc_catalogs', '0d08b13c3330100c8b837659bba8fb4');
+		sc.setLimit(100);
+		sc.orderByDesc("ir_query_score");
+		sc.query();
+		var results = [];
+		while (sc.next()) {
+			if (!$sp.canReadRecord(sc))
+				continue;
+
+			var item = {};
+			$sp.getRecordDisplayValues(item, sc, 'name,price,sys_id');
+			item.category = sc.getValue('category');
+			results.push(item);
+		}
+		return results;
+	}
+})();]]></script>
+        <servicenow>false</servicenow>
+        <sys_class_name>sp_widget</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2019-07-18 16:14:06</sys_created_on>
+        <sys_id>921f3a902f32330078a1f3ecf699b624</sys_id>
+        <sys_mod_count>10</sys_mod_count>
+        <sys_name>Embedded Shift Create NewForm</sys_name>
+        <sys_package display_value="UCD Shift Scheduler" source="x_113761_ucd_shift">7a5fd304db102300de3abd5139961929</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="UCD Shift Scheduler">7a5fd304db102300de3abd5139961929</sys_scope>
+        <sys_update_name>sp_widget_921f3a902f32330078a1f3ecf699b624</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2019-07-19 19:51:11</sys_updated_on>
+        <template><![CDATA[<div>
+<input class="form-control" type="search" placeholder="Enter Text Here" ng-model="c.data.keywords" ng-change="c.server.update()" ng-model-options="{debounce: 250}" />
+</div>]]></template>
+    </sp_widget>
+</record_update>

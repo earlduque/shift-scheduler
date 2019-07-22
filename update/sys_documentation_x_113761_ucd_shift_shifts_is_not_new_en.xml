@@ -1,25 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?><record_update>
-    <sys_documentation element="manager" label="Manager" language="en" table="x_113761_ucd_shift_shifts">
+    <sys_documentation element="is_not_new" label="Is Not New" language="en" table="x_113761_ucd_shift_shifts">
         <sys_documentation action="INSERT_OR_UPDATE">
-            <element>manager</element>
+            <element>is_not_new</element>
             <help/>
             <hint/>
-            <label>Manager</label>
+            <label>Is Not New</label>
             <language>en</language>
             <name>x_113761_ucd_shift_shifts</name>
-            <plural>Managers</plural>
+            <plural>Is Not News</plural>
             <sys_class_name>sys_documentation</sys_class_name>
             <sys_created_by>admin</sys_created_by>
-            <sys_created_on>2018-08-28 21:13:28</sys_created_on>
-            <sys_id>0850a3092f22330078a1f3ecf699b671</sys_id>
+            <sys_created_on>2019-07-16 21:33:55</sys_created_on>
+            <sys_id>564531b32fe2330078a1f3ecf699b6d0</sys_id>
             <sys_mod_count>0</sys_mod_count>
-            <sys_name>Manager</sys_name>
+            <sys_name>Is Not New</sys_name>
             <sys_package display_value="UCD Shift Scheduler" source="x_113761_ucd_shift">7a5fd304db102300de3abd5139961929</sys_package>
             <sys_policy/>
             <sys_scope display_value="UCD Shift Scheduler">7a5fd304db102300de3abd5139961929</sys_scope>
-            <sys_update_name>sys_documentation_x_113761_ucd_shift_shifts_manager_en</sys_update_name>
+            <sys_update_name>sys_documentation_x_113761_ucd_shift_shifts_is_not_new_en</sys_update_name>
             <sys_updated_by>admin</sys_updated_by>
-            <sys_updated_on>2018-08-28 21:13:28</sys_updated_on>
+            <sys_updated_on>2019-07-16 21:33:55</sys_updated_on>
             <url/>
             <url_target/>
         </sys_documentation>

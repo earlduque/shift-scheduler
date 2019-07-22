@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sysauto_script">
+    <sysauto_script action="INSERT_OR_UPDATE">
+        <active>true</active>
+        <condition/>
+        <conditional>false</conditional>
+        <name>Duplicate templates</name>
+        <run_as display_value="System Administrator">6816f79cc0a8016401c5a33be04be441</run_as>
+        <run_as_tz/>
+        <run_dayofmonth>1</run_dayofmonth>
+        <run_dayofweek>7</run_dayofweek>
+        <run_period/>
+        <run_start>2019-07-08 23:09:50</run_start>
+        <run_time>1970-01-01 08:00:00</run_time>
+        <run_type>weekly</run_type>
+        <script><![CDATA[//Query the shifts table for templates
+var shifts = new GlideRecord("x_113761_ucd_shift_shifts");
+var checkDate = new GlideDateTime();
+checkDate.addDaysLocalTime(-7);
+shifts.addQuery('start','>=',checkDate);
+shifts.addQuery("type", "Template");
+shifts.addQuery("number_of_shifts_to_be_created_in_advance", ">", 0);
+shifts.query();
+
+//If template create a normal shift for the current week
+//Create designated number
+while(shifts.next()){
+	var dateStart = new GlideDateTime(shifts.getValue("start"));
+	var dateEnd = new GlideDateTime(shifts.getValue("end"));
+	dateStart.addDaysLocalTime(7);
+	dateEnd.addDaysLocalTime(7);
+	
+	var numShiftsToCreate = shifts.getValue("number_of_people_on_shift");
+	var numWeeksToCreate = shifts.getValue("number_of_shifts_to_be_created_in_advance");
+	
+	var newEntry = new GlideRecord("x_113761_ucd_shift_shifts");
+	newEntry.initialize();
+	newEntry.start = dateStart;
+	newEntry.end = dateEnd;
+	newEntry.assigned_to = shifts.getValue("mandatory") ? shifts.getValue("assigned_to") : "";
+	newEntry.assignment_group = shifts.getValue("assignment_group");
+	newEntry.manager = shifts.getValue("manager");
+	newEntry.type = shifts.getValue("type");
+	newEntry.number_of_people_on_shift = numShiftsToCreate;
+	newEntry.number_of_shifts_to_be_created_in_advance = numWeeksToCreate - 1;
+	//Business Rule runs if this field is false
+	newEntry.is_not_new = true;
+	newEntry.insert();
+	
+	shifts.number_of_shifts_to_be_created_in_advance = 0;
+	shifts.update();
+	
+}
+
+]]></script>
+        <sys_class_name>sysauto_script</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2019-07-08 23:10:14</sys_created_on>
+        <sys_id>518e30192f26330078a1f3ecf699b69a</sys_id>
+        <sys_mod_count>17</sys_mod_count>
+        <sys_name>Duplicate templates</sys_name>
+        <sys_package display_value="UCD Shift Scheduler" source="x_113761_ucd_shift">7a5fd304db102300de3abd5139961929</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="UCD Shift Scheduler">7a5fd304db102300de3abd5139961929</sys_scope>
+        <sys_update_name>sysauto_script_518e30192f26330078a1f3ecf699b69a</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2019-07-17 18:28:31</sys_updated_on>
+        <upgrade_safe>false</upgrade_safe>
+    </sysauto_script>
+</record_update>

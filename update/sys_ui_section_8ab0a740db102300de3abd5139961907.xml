@@ -4,13 +4,13 @@
             <element>assigned_to</element>
             <position>0</position>
             <sys_created_by>admin</sys_created_by>
-            <sys_created_on>2018-08-28 21:28:49</sys_created_on>
-            <sys_id>1434a3c4db102300de3abd51399619f8</sys_id>
+            <sys_created_on>2019-07-17 16:49:12</sys_created_on>
+            <sys_id>d9bdfd842f32330078a1f3ecf699b6bd</sys_id>
             <sys_mod_count>0</sys_mod_count>
             <sys_ui_formatter/>
             <sys_ui_section caption="NULL" display_value="" name="x_113761_ucd_shift_shifts" sys_domain="global" view="Default view">8ab0a740db102300de3abd5139961907</sys_ui_section>
             <sys_updated_by>admin</sys_updated_by>
-            <sys_updated_on>2018-08-28 21:28:49</sys_updated_on>
+            <sys_updated_on>2019-07-17 16:49:12</sys_updated_on>
             <sys_user/>
             <type/>
         </sys_ui_element>
@@ -18,13 +18,13 @@
             <element>assignment_group</element>
             <position>1</position>
             <sys_created_by>admin</sys_created_by>
-            <sys_created_on>2018-08-28 21:28:49</sys_created_on>
-            <sys_id>9434a3c4db102300de3abd51399619f8</sys_id>
+            <sys_created_on>2019-07-17 16:49:12</sys_created_on>
+            <sys_id>5dbdfd842f32330078a1f3ecf699b6ca</sys_id>
             <sys_mod_count>0</sys_mod_count>
             <sys_ui_formatter/>
             <sys_ui_section caption="NULL" display_value="" name="x_113761_ucd_shift_shifts" sys_domain="global" view="Default view">8ab0a740db102300de3abd5139961907</sys_ui_section>
             <sys_updated_by>admin</sys_updated_by>
-            <sys_updated_on>2018-08-28 21:28:49</sys_updated_on>
+            <sys_updated_on>2019-07-17 16:49:12</sys_updated_on>
             <sys_user/>
             <type/>
         </sys_ui_element>
@@ -32,13 +32,13 @@
             <element>start</element>
             <position>2</position>
             <sys_created_by>admin</sys_created_by>
-            <sys_created_on>2018-08-28 21:28:49</sys_created_on>
-            <sys_id>1834a3c4db102300de3abd51399619f8</sys_id>
+            <sys_created_on>2019-07-17 16:49:12</sys_created_on>
+            <sys_id>d1bdfd842f32330078a1f3ecf699b6cb</sys_id>
             <sys_mod_count>0</sys_mod_count>
             <sys_ui_formatter/>
             <sys_ui_section caption="NULL" display_value="" name="x_113761_ucd_shift_shifts" sys_domain="global" view="Default view">8ab0a740db102300de3abd5139961907</sys_ui_section>
             <sys_updated_by>admin</sys_updated_by>
-            <sys_updated_on>2018-08-28 21:28:49</sys_updated_on>
+            <sys_updated_on>2019-07-17 16:49:12</sys_updated_on>
             <sys_user/>
             <type/>
         </sys_ui_element>
@@ -46,13 +46,13 @@
             <element>end</element>
             <position>3</position>
             <sys_created_by>admin</sys_created_by>
-            <sys_created_on>2018-08-28 21:28:49</sys_created_on>
-            <sys_id>9834a3c4db102300de3abd51399619f8</sys_id>
+            <sys_created_on>2019-07-17 16:49:12</sys_created_on>
+            <sys_id>59bdfd842f32330078a1f3ecf699b6cb</sys_id>
             <sys_mod_count>0</sys_mod_count>
             <sys_ui_formatter/>
             <sys_ui_section caption="NULL" display_value="" name="x_113761_ucd_shift_shifts" sys_domain="global" view="Default view">8ab0a740db102300de3abd5139961907</sys_ui_section>
             <sys_updated_by>admin</sys_updated_by>
-            <sys_updated_on>2018-08-28 21:28:49</sys_updated_on>
+            <sys_updated_on>2019-07-17 16:49:12</sys_updated_on>
             <sys_user/>
             <type/>
         </sys_ui_element>
@@ -60,13 +60,13 @@
             <element>.split</element>
             <position>4</position>
             <sys_created_by>admin</sys_created_by>
-            <sys_created_on>2018-08-28 21:28:49</sys_created_on>
-            <sys_id>1c34a3c4db102300de3abd51399619f8</sys_id>
+            <sys_created_on>2019-07-17 16:49:12</sys_created_on>
+            <sys_id>ddbdfd842f32330078a1f3ecf699b6cb</sys_id>
             <sys_mod_count>0</sys_mod_count>
             <sys_ui_formatter/>
             <sys_ui_section caption="NULL" display_value="" name="x_113761_ucd_shift_shifts" sys_domain="global" view="Default view">8ab0a740db102300de3abd5139961907</sys_ui_section>
             <sys_updated_by>admin</sys_updated_by>
-            <sys_updated_on>2018-08-28 21:28:49</sys_updated_on>
+            <sys_updated_on>2019-07-17 16:49:12</sys_updated_on>
             <sys_user/>
             <type>.split</type>
         </sys_ui_element>
@@ -74,13 +74,13 @@
             <element>manager</element>
             <position>5</position>
             <sys_created_by>admin</sys_created_by>
-            <sys_created_on>2018-08-28 21:28:49</sys_created_on>
-            <sys_id>9c34a3c4db102300de3abd51399619f8</sys_id>
+            <sys_created_on>2019-07-17 16:49:12</sys_created_on>
+            <sys_id>55bdfd842f32330078a1f3ecf699b6cc</sys_id>
             <sys_mod_count>0</sys_mod_count>
             <sys_ui_formatter/>
             <sys_ui_section caption="NULL" display_value="" name="x_113761_ucd_shift_shifts" sys_domain="global" view="Default view">8ab0a740db102300de3abd5139961907</sys_ui_section>
             <sys_updated_by>admin</sys_updated_by>
-            <sys_updated_on>2018-08-28 21:28:49</sys_updated_on>
+            <sys_updated_on>2019-07-17 16:49:12</sys_updated_on>
             <sys_user/>
             <type/>
         </sys_ui_element>
@@ -88,13 +88,13 @@
             <element>type</element>
             <position>6</position>
             <sys_created_by>admin</sys_created_by>
-            <sys_created_on>2018-08-28 21:28:49</sys_created_on>
-            <sys_id>1034a3c4db102300de3abd51399619f9</sys_id>
+            <sys_created_on>2019-07-17 16:49:12</sys_created_on>
+            <sys_id>d9bdfd842f32330078a1f3ecf699b6cc</sys_id>
             <sys_mod_count>0</sys_mod_count>
             <sys_ui_formatter/>
             <sys_ui_section caption="NULL" display_value="" name="x_113761_ucd_shift_shifts" sys_domain="global" view="Default view">8ab0a740db102300de3abd5139961907</sys_ui_section>
             <sys_updated_by>admin</sys_updated_by>
-            <sys_updated_on>2018-08-28 21:28:49</sys_updated_on>
+            <sys_updated_on>2019-07-17 16:49:12</sys_updated_on>
             <sys_user/>
             <type/>
         </sys_ui_element>
@@ -102,13 +102,13 @@
             <element>mandatory</element>
             <position>7</position>
             <sys_created_by>admin</sys_created_by>
-            <sys_created_on>2018-08-28 21:28:49</sys_created_on>
-            <sys_id>9034a3c4db102300de3abd51399619f9</sys_id>
+            <sys_created_on>2019-07-17 16:49:12</sys_created_on>
+            <sys_id>51bdfd842f32330078a1f3ecf699b6cd</sys_id>
             <sys_mod_count>0</sys_mod_count>
             <sys_ui_formatter/>
             <sys_ui_section caption="NULL" display_value="" name="x_113761_ucd_shift_shifts" sys_domain="global" view="Default view">8ab0a740db102300de3abd5139961907</sys_ui_section>
             <sys_updated_by>admin</sys_updated_by>
-            <sys_updated_on>2018-08-28 21:28:49</sys_updated_on>
+            <sys_updated_on>2019-07-17 16:49:12</sys_updated_on>
             <sys_user/>
             <type/>
         </sys_ui_element>
@@ -116,13 +116,13 @@
             <element>number_of_people_on_shift</element>
             <position>8</position>
             <sys_created_by>admin</sys_created_by>
-            <sys_created_on>2018-08-28 21:28:49</sys_created_on>
-            <sys_id>1434a3c4db102300de3abd51399619f9</sys_id>
+            <sys_created_on>2019-07-17 16:49:12</sys_created_on>
+            <sys_id>d5bdfd842f32330078a1f3ecf699b6cd</sys_id>
             <sys_mod_count>0</sys_mod_count>
             <sys_ui_formatter/>
             <sys_ui_section caption="NULL" display_value="" name="x_113761_ucd_shift_shifts" sys_domain="global" view="Default view">8ab0a740db102300de3abd5139961907</sys_ui_section>
             <sys_updated_by>admin</sys_updated_by>
-            <sys_updated_on>2018-08-28 21:28:49</sys_updated_on>
+            <sys_updated_on>2019-07-17 16:49:12</sys_updated_on>
             <sys_user/>
             <type/>
         </sys_ui_element>
@@ -130,13 +130,13 @@
             <element>number_of_shifts_to_be_created_in_advance</element>
             <position>9</position>
             <sys_created_by>admin</sys_created_by>
-            <sys_created_on>2018-08-28 21:28:49</sys_created_on>
-            <sys_id>9434a3c4db102300de3abd51399619f9</sys_id>
+            <sys_created_on>2019-07-17 16:49:12</sys_created_on>
+            <sys_id>5dbdfd842f32330078a1f3ecf699b6cd</sys_id>
             <sys_mod_count>0</sys_mod_count>
             <sys_ui_formatter/>
             <sys_ui_section caption="NULL" display_value="" name="x_113761_ucd_shift_shifts" sys_domain="global" view="Default view">8ab0a740db102300de3abd5139961907</sys_ui_section>
             <sys_updated_by>admin</sys_updated_by>
-            <sys_updated_on>2018-08-28 21:28:49</sys_updated_on>
+            <sys_updated_on>2019-07-17 16:49:12</sys_updated_on>
             <sys_user/>
             <type/>
         </sys_ui_element>

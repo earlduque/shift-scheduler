@@ -1,50 +1,86 @@
 <?xml version="1.0" encoding="UTF-8"?><record_update table="sp_widget">
     <sp_widget action="INSERT_OR_UPDATE">
         <category/>
-        <client_script><![CDATA[function(glideUserSession) {
+        <client_script><![CDATA[function(glideUserSession, spModal) {
   /* widget controller */
   var c = this;
 	//Convert numbers to days of week
-	c.weekday = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+	c.weekday = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
 	c.months = [ "January", "February", "March", "April", "May", "June", 
            "July", "August", "September", "October", "November", "December" ];
-	c.numNames = [];
+	c.groupOptions =[];
+	c.canDelete = false;
+	//alert(c.data.currentDay.day);
+	//alert(c.data.week[9].day);
 	for(var i = 0; i < c.data.groupNames.length; i++){
-		c.numNames.push(i);
+		c.groupOptions.push({'name': c.data.groupNames[i],
+													'value' : i});
 	}
-	c.data.option = 0;
-	//alert(c.data.yo);
-	//Set options
-	
-	//Filter shifts
 	c.currentWeek = 0;
 	
+	c.newEntry = function(){
+		var curURL = top.location + "";
+		var i = 0;
+		while(curURL.substring(i, i + 11) != "service-now")
+			i++;
+		var URL = curURL.substring(0, i) + "service-now.com/sp?id=form&table=x_113761_ucd_shift_shifts&sys_id=-1";
+		URL += "&groupID=" + c.data.groups[c.data.option];
+		URL += "&userID=" + c.data.userID;
+		
+		//window.open(URL,'title', 'width=800, height=700');
+    //return false;
+		window.location = URL;
+	};
+	
+	c.enableDelete = function(){
+		c.canDelete = !c.canDelete;
+		if(c.canDelete){
+				glideUserSession.loadCurrentUser().then(function(currentUser) {
+				c.server.update();
+				});			
+		}
+	};
+	
+	c.deleteEntry= function(shift){
+		spModal.confirm("Delete this shift?").then(function(confirmed){
+			if (confirmed) {
+				glideUserSession.loadCurrentUser().then(function(currentUser) {
+				c.data.shiftToDelete = shift.sys_id;
+				c.server.update();
+				});
+			}
+		})
+	};
+	
+	c.editEntry = function(shift){
+		var curURL = top.location + "";
+		var i = 0;
+		while(curURL.substring(i, i + 11) != "service-now")
+			i++;
+		var URL = curURL.substring(0, i) + "service-now.com/sp?id=form&table=x_113761_ucd_shift_shifts&sys_id=";
+		URL += shift.sys_id;
+		window.location = URL;
+	};
 	
 	c.changeWeek = function(changedWeek){
-		//alert(changedWeek);
+		if(c.currentWeek + changedWeek < 0){
+			spModal.alert("You cannot go prior to the current week");
+			return;
+		}
 		c.currentWeek += changedWeek;
 		c.data.newWeek = c.currentWeek;
 		c.server.update().then(function(){
+
 		});
 		//alert(c.data.newWeek);
 
-	}
+	};
 	
 	c.filteredShift = [];
 	c.filter = function(group){
-		//alert(c.data.groupNames[group] + " " + group);
-		//c.option = group;
 		c.server.update().then(function(){
-		});
-		
-		//c.filteredShift = [];
-		//for(var i = 0; i < c.data.groupNames.length; i++){
-		//	if(c.data.groupNames[i] == group){
-		//		c.filteredShift = c.data.filteredShifts[i];
-		//	}
-		//}
-		//alert(filteredShift);
-	}
+		});	
+	};
 	
 	//On Click Functions
 	c.trade = function(shift){
@@ -55,19 +91,21 @@
 		var URL = curURL.substring(0, i) + "service-now.com/sp?id=sc_cat_item&sys_id=2fe66f08db102300de3abd513996196e";
 		URL += "&shiftid=" + shift.sys_id;
 		window.open(URL);
-	}
+	};
+	
 	c.take = function(shift){
-		//window.open("google.com");
-		//window.location.href = "google.com"
-		if (confirm("Take this shift?")) {
-			glideUserSession.loadCurrentUser().then(function(currentUser) {
-			c.data.userID = currentUser.userID;
-			c.data.takeShift = true;
-			c.data.shiftID = shift.sys_id;
-			c.server.update();
-			});
-		}
-	}
+		spModal.confirm("Take this shift?").then(function(confirmed){
+			if (confirmed) {
+				glideUserSession.loadCurrentUser().then(function(currentUser) {
+				c.data.userID = currentUser.userID;
+				c.data.shiftID = shift.sys_id;
+				c.server.update();
+					
+				});
+			}
+		})
+	};
+	
 	c.cover = function(shift){
 		var curURL = top.location + "";
 		var i = 0;
@@ -76,15 +114,25 @@
 		var URL = curURL.substring(0, i) + "service-now.com/sp?id=sc_cat_item&sys_id=2fe66f08db102300de3abd513996196e";
 		URL += "&coverid=" + shift.sys_id;
 		window.open(URL);
-	}
+	};
 	
+	c.onWidget = function(){
+		    spModal.open({
+            title: 'Give me a name',
+            message: 'What would you like to name it?',
+            input: true,
+            value: c.name
+        }).then(function(name) {
+            c.name = name;
+        })   
+	}
 }]]></client_script>
         <controller_as>c</controller_as>
         <css>td,
 th {
     border: 1px solid rgb(190, 190, 190);
     padding: 10px;
- 		valign: top;
+ 		align: top;
 }
 
 td {
@@ -116,18 +164,65 @@ caption {
 
 table {
     border-collapse: collapse;
-    border: 2px solid rgb(200, 200, 200);
+    border: 0px solid rgb(200, 200, 200);
     letter-spacing: 1px;
     font-family: sans-serif;
     font-size: .8rem;
   	table-layout: fixed;
 }
 
+.selector{
+  float: right;
+  margin-right: 5px;
+}
+
+.buttons{
+	background-color: #fff;
+  color: #1F8476;
+  border: none;
+  padding: 3px 10px;
+  text-align: center;
+  float: right;
+  margin: 5px 5px;
+  margin-top: -3px;
+}
+
+.button-delete{
+  background-color: #fff;
+  color: #1F8476;
+  border: none;
+  padding: 3px 3px;
+  text-align: center;
+}
+
 .listname{
 	text-align: center;
 }
+
+.currentDay{
+ 	background-color: #1F8476 ! important;
+  color: #fff;
+}
+
 .newline {
   display: block;
+}
+
+.loader {
+  border: 8px solid 1F8476fff; /* Light grey */
+  border-top: 8px solid #fff; /* Blue */
+  border-radius: 50%;
+  width: 10px;
+  height: 10px;
+  animation: spin 2s linear infinite;
+  float: right;
+  margin-right: 9px;
+  margin-top: 5px;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }
 </css>
         <data_table>sp_instance</data_table>
@@ -147,7 +242,7 @@ table {
 	
 	if(input) {
 		//Taking open shift
-		if(input.takeShift){
+		if(input.shiftID){
 			var gr = new GlideRecord('x_113761_ucd_shift_shifts');
 			gr.addQuery('sys_id', input.shiftID);
 			gr.query();
@@ -156,17 +251,26 @@ table {
 				gr.update();
 			}
 		}
+		if(input.shiftToDelete){
+			var gr = new GlideRecord('x_113761_ucd_shift_shifts');
+			gr.addQuery('sys_id', input.shiftToDelete);
+			gr.query();
+			
+			if(gr.next()){
+				gr.deleteRecord();
+			}
+		}
 	}
-	
-	
-	
-
+	data.formWidget = { table: "x_113761_ucd_shift_shifts", sys_id: "-1", hideRelatedLists: false };
 	
 	data.currUser = gs.getUserDisplayName();
 	data.userID = gs.getUserID();
 	data.groups = getGroups();
 	data.groupNames = getGroupNames(data.groups);
-	//data.option = 0;
+	data.isManager = getManager();
+	var today = new GlideDateTime();
+	data.currentDay = {month: today.getMonthLocalTime(), day: today.getDayOfMonthLocalTime()};
+
 	if(input){
 		var option = 0;
 		var week = 0;
@@ -174,36 +278,48 @@ table {
 			option = input.option;
 		}
 		if(input.newWeek){
-			//console.log(newWeek);
-			console.log("Hello: " + input.newWeek);
 			week = input.newWeek;
 		}
-		data.shifts = getShifts(data.groups[option], week);
+		//If current week is odd matching TRS
+		if((today.getWeekOfYearLocalTime() % 2) == 1){
+			getDates(week);
+			data.shifts = getShifts(data.groups[option], week);
+		}
+		else{
+			getDates(week - 1);
+			data.shifts = getShifts(data.groups[option], week - 1);
+		}	
 	}
 	else {
-		data.shifts = getShifts(data.groups[0], 0);
+		//If current week is odd
+		if((today.getWeekOfYearLocalTime() % 2) == 1){
+			getDates(0);
+			data.shifts = getShifts(data.groups[0], 0);
+		}
+		else{
+			getDates(-1);
+			data.shifts = getShifts(data.groups[0], -1);
+		}
 		if(input && input.option)
 			data.option = input.option;
-		//data.option = data.groupNames[0];
 	}
+	//Get Next month for display in January/February... December/January cases	
+	data.nextMonth = (data.month != 11) ? (data.month + 1) : 0;
 
-	/*
-	data.filteredShifts = getFilteredShifts(data.shifts, data.groupNames);
-	function getFilteredShifts(shifts, groups){
-		var results = [];
-		for(var g = 0; g < groups.length; g++){
-			var filter = [];
-			for(var i = 0; i < shifts.length; i++){
-				if(shifts[i].assignment_group == groups[g]){
-					filter.push(shifts[i]);
-				}
-			}
-			results.push(filter);
+	//Sees if user is manager of current group
+	function getManager(){
+		var grUser = new GlideRecord('sys_user_group');
+		grUser.addQuery('manager', data.userID);
+		if(input && input.option){
+			grUser.addQuery("sys_id", data.groups[input.option])
 		}
-
-		return results;
+		else {
+			grUser.addQuery("sys_id", data.groups[0])
+		}
+		grUser.setLimit(1);
+		grUser.query();
+		return (grUser.next()) ? true : false;
 	}
-	*/
 	//Get Groups
 	function getGroups(){
 		var results = [];
@@ -253,41 +369,46 @@ table {
   return new Date(d.setDate(diff));
 	}
 	
-	function getStartDate(date){
-		//console.log("1: " + date.getDate());
-		//console.log("2: " + date.getDay());
-		return date.getDate() - date.getDay()
+	function getStartDate(date, week){
+		var glideDate = new GlideDateTime();
+		glideDate.addDaysLocalTime((7 * week) - date.getDay());
+		return {month: glideDate.getMonthLocalTime() - 1, day: glideDate.getDayOfMonthLocalTime(), year: glideDate.getYearLocalTime()};
 	}
-	
-	function getShifts(groupID, week) {
+
+	function getDates(week){
 		var currDate = new Date();
 		var date = new Date(currDate.getFullYear(), currDate.getMonth(), currDate.getDate()+(7*week));
-		data.month = date.getMonth(); //Edge case of multi month weeks
-		data.year = date.getFullYear();
+		var start = getStartDate(date, week);
+		data.month = start.month; //Edge case of multi month weeks
+		data.year = start.year;
 		data.week = [];
-		
-		var start = getStartDate(date);
-		//console.log("Month: " + data.month);
-		//console.log("Year: " + data.year);
-		//console.log("Day: " + start);
-		
-		console.log(getMonday(new Date()).getDay());
-		//var monthAug = 1;
-		var upper = 7
+		data.multiMonth = false;
+		//Figure out how to know how many months to decrement
+		//This will allow going backwards previous to current date
+		//if(week < 0){
+		//	--data.month;
+		//}
+		var monthAug = 1;
+		//How many days to store
+		var upper = 14;
 		for(var i = 0; i < upper; i++){
-			var day = start + i;
-			if(!isValid(day,data.month,data.year)){
-				start = 1;
+			var day = start.day + i;
+			if(!isValid(day,start.month,start.year)){
+				start.day = 1;
 				upper -= i;
-				//monthAug++;
+				start.month = (start.month != 11) ? (start.month + 1) : 0;
 				i = 0;
-				day = start;
+				day = start.day;
+				data.multiMonth = true;
 			}
-			//data.week.push((data.month + monthAug) + "/" + day);
-			data.week.push((data.month) + "/" + day);
-
+			
+			//start.month + 1 because we index month 0-11 but display it 1-12
+			data.week.push({month: (start.month + 1), day: day});
 		}
-		
+	}
+	
+	//BUG doesnt query based on year
+	function getShifts(groupID, week) {
 		var results = [];
 		var now = new GlideDateTime();
 		var gr = new GlideRecord('x_113761_ucd_shift_shifts');
@@ -298,23 +419,22 @@ table {
 		while (gr.next()) {
 			if (!$sp.canReadRecord(gr))
 				continue;
-			//Date Time var apparently not a GlideDateTime
 			
 			var gdt = new GlideDateTime(gr.start);
-
-			//All weeks begin on sunday. if this week is current week
-			//Edit to store all shifts >= weeks
-			if(gdt.getWeekOfYearUTC() == now.getWeekOfYearUTC() + week){
-				var shift = {}
-				//Get record information
-				$sp.getRecordDisplayValues(shift, gr, 'assigned_to,start,end,sys_id,assignment_group');
-				shift.start = convertTime(shift.start);
-				shift.end = convertTime(shift.end);
-				//Day of week as a num. 1 = Monday, 2 = tuesday
-				shift.day = gdt.getDayOfWeekLocalTime() - 1;
-				results.push(shift);
-			}
 			
+			var shift = {}
+			$sp.getRecordDisplayValues(shift, gr, 'assigned_to,start,end,sys_id,assignment_group');
+			shift.start = convertTime(shift.start);
+			shift.end = convertTime(shift.end);
+			
+			//First week. Day of week as a num. 1 = Monday, 2 = tuesday
+			if(gdt.getWeekOfYearLocalTime() == (now.getWeekOfYearLocalTime() + week) % 52)
+				shift.day = gdt.getDayOfWeekLocalTime() - 1;
+			//Second week
+			else if(gdt.getWeekOfYearLocalTime() == (now.getWeekOfYearLocalTime() + week + 1) % 52)
+				shift.day = gdt.getDayOfWeekLocalTime() - 1 + 7;
+			
+			results.push(shift);			
 			//return results;
 		}
 		
@@ -335,47 +455,95 @@ table {
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2018-09-11 18:02:12</sys_created_on>
         <sys_id>b52bf26cdb202300de3abd51399619b8</sys_id>
-        <sys_mod_count>727</sys_mod_count>
+        <sys_mod_count>1201</sys_mod_count>
         <sys_name>Shift Scheduler</sys_name>
         <sys_package display_value="UCD Shift Scheduler" source="x_113761_ucd_shift">7a5fd304db102300de3abd5139961929</sys_package>
         <sys_policy/>
         <sys_scope display_value="UCD Shift Scheduler">7a5fd304db102300de3abd5139961929</sys_scope>
         <sys_update_name>sp_widget_b52bf26cdb202300de3abd51399619b8</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2019-06-14 00:05:05</sys_updated_on>
+        <sys_updated_on>2019-07-19 22:01:38</sys_updated_on>
         <template><![CDATA[<div class="panel panel-primary">
- <div class="panel-heading">{{c.months[c.data.month]}} {{c.data.year}}
-  <select ng-model="c.data.option" ng-change="c.filter(c.data.option)">
-  	<option ng-repeat="i in c.numNames" value = "{{i}}">{{c.data.groupNames[i]}}{{i}}</option>
-	</select>
-  <button type="button" ng-click="c.changeWeek(-1)">Backward!</button>
-  <button type="button" ng-click="c.changeWeek(1)">Forward!</button>
-  </div>
-  <table border="1" width="100%" style="margin: 0px;">
-    <tr>
-    	<td ng-repeat="i in [0,1,2,3,4,5,6]">
-      {{c.weekday[i]}} - {{c.data.week[i]}}
-      </td>
-    </tr>
-    
-    <tr>
- 		<th ng-repeat="i in [6,0,1,2,3,4,5]">
-   		<div class="list-group result-container">
-    		 <li class="list-group-item listname" ng-repeat="shift in c.data.shifts" ng-if="shift.day ==i">
-     			  <a href ng-if="shift.assigned_to == ''" ng-click = c.take(shift)>Open</a>
-    		    <a href ng-if="shift.assigned_to == c.data.currUser" ng-click="c.cover(shift)">{{shift.assigned_to}}</a>
-     			  <a href ng-if="shift.assigned_to != c.data.currUser" ng-click="c.trade(shift)">{{shift.assigned_to}} {{count}}</a>
-     			  <span class="newline">{{shift.start}}</span>
-      		  <span class="newline">{{shift.end}}</span>
-    	  </li>
-   		</div>
-   </th>
-   </tr>
- </table>
-</div>
+  <link rel="stylesheet" href="styles/retina_icons/retina_icons.css ">
+  <!--Header-->
+  <!--<widget id="widget-form" options='data.formWidget'></widget>-->
+    <div class="panel-heading">
+      	<span ng-if="!c.data.multiMonth">{{c.months[c.data.month]}} {{c.data.year}}</span>
+       	<span ng-if="c.data.multiMonth">{{c.months[c.data.month]}}/{{c.months[c.data.nextMonth]}} {{c.data.year}}</span>
+      	<button ng-if="c.data.isManager" class="buttons icon-add-circle-empty" type="button" ng-click="c.newEntry()"></button>
+        <button ng-if="c.data.isManager" class="buttons icon-trash" type="button" ng-click="c.enableDelete()"></button>        
+      	<button class="buttons icon-arrow-right" type="button" ng-click="c.changeWeek(2)"></button>
+        <button class="buttons icon-arrow-left" type="button" ng-click="c.changeWeek(-2)"></button>
+        <select class="selector" ng-init="c.data.option=0" ng-model="c.data.option" ng-change="c.filter(c.data.option)" ng-options="template.value as template.name for template in c.groupOptions">
+            <option value="" ng-show="false"></option>
+        </select>
+        
+      	<!--<div class="loader"></div>-->
 
-<div>
-  {{c.data.option}} {{data.option}}
+    </div>
+  
+		
+   	<!--Day of Week-->
+    <table border="1" width="100%" style="margin: 0px;">
+      <tr>
+        <td ng-repeat="i in [0,1,2,3,4,5,6]">
+          {{c.weekday[i]}}
+        </td>
+      </tr>
+  	</table>
+  	<!--Dates Row 1-->
+    <table border="0" width="100%" style="margin: 0px;">
+        <tr>
+            <td ng-repeat="i in [0,1,2,3,4,5,6]">
+                {{c.data.week[i].month}}/{{c.data.week[i].day}}
+            </td>
+        </tr>
+      
+        <tr>
+            <!--Day-->
+            <th ng-repeat="i in [6,0,1,2,3,4,5]">
+            <!--Shift entries-->
+            <div class="list-group result-container">
+                <li class="list-group-item listname" ng-repeat="shift in c.data.shifts" ng-if="shift.day ==i">
+                  	<a href ng-if="shift.assigned_to == ''" ng-click = c.take(shift)>Open</a>
+                    <a href ng-if="shift.assigned_to == c.data.currUser" ng-click="c.cover(shift)">{{shift.assigned_to}}</a>
+                    <a href ng-if="shift.assigned_to != c.data.currUser" ng-click="c.trade(shift)">{{shift.assigned_to}} {{count}}</a>
+                    <span class="newline">{{shift.start}}</span>
+                    <span class="newline">{{shift.end}}</span>
+                    <button ng-if="c.data.isManager && c.canDelete" class="button-delete icon-trash" type="button" ng-click="c.deleteEntry(shift)"></button>
+                  	<button ng-if="c.data.isManager" class="button-delete icon-edit" type="button" ng-click="c.editEntry(shift)"></button>
+                </li>
+            </div>
+            </th>
+        </tr>
+    </table>
+		
+  <!--Dates row 2-->
+    <table border="1" width="100%" style="margin: 0px;">
+        <tr>
+            <td ng-repeat="i in [7,8,9,10,11,12,13]" ng-class="{currentDay: c.data.currentDay.month==c.data.week[i].month && c.data.currentDay.day==c.data.week[i].day}">
+                {{c.data.week[i].month}}/{{c.data.week[i].day}}
+            </td>
+        </tr>
+    		
+        <tr>
+          	<!--Day-->
+            <th ng-repeat="i in [13,7,8,9,10,11,12]">
+            <!--Shift entries-->
+            <div class="list-group result-container">
+                <li class="list-group-item listname" ng-repeat="shift in c.data.shifts" ng-if="shift.day==i">
+                    <a href ng-if="shift.assigned_to == ''" ng-click = c.take(shift)>Open</a>
+                    <a href ng-if="shift.assigned_to == c.data.currUser" ng-click="c.cover(shift)">{{shift.assigned_to}}</a>
+                    <a href ng-if="shift.assigned_to != c.data.currUser" ng-click="c.trade(shift)">{{shift.assigned_to}} {{count}}</a>
+                    <span class="newline">{{shift.start}}</span>
+                    <span class="newline">{{shift.end}}</span>
+                    <button ng-if="c.data.isManager && c.canDelete" class="button-delete icon-trash" type="button" ng-click="c.deleteEntry(shift)"></button>
+              	    <button ng-if="c.data.isManager" class="button-delete icon-edit" type="button" ng-click="c.editEntry(shift)"></button>
+              	</li>
+            </div>
+            </th>
+        </tr>
+    </table>
 </div>]]></template>
     </sp_widget>
 </record_update>

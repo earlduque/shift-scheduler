@@ -6,31 +6,52 @@
         <description/>
         <field>assigned_to</field>
         <global>true</global>
-        <isolate_script>false</isolate_script>
+        <isolate_script>true</isolate_script>
         <messages/>
-        <name>Autofill Assigned To</name>
+        <name>If URL on submit</name>
         <order/>
-        <script><![CDATA[function onLoad() {
-   //Type appropriate comment here, and begin script below
-   g_form.setValue("assigned_to", g_user.userID);
+        <script><![CDATA[function onSubmit() {
+	//Type appropriate comment here, and begin script below
+	var groupID = findParameter("groupID");
+	if(groupID != "") { // If the user requests a trade;
+		g_form.submit();
+		window.top.close();
+	}
+}
+function findParameter(name){
+	var URL = top.location + "";
+	for(var i = URL.length; i >= 0 ; i--){
+		var compare = URL.substring(i-name.length, i);
+		if(compare == name){
+			var result = '';
+			var j = i + 1;
+			while(j < URL.length && URL[j] != '&'){
+				result += URL[j];
+				++j;
+			}
+			console.log(result);
+			return result;
+		}
+	}
+	return "";
 }]]></script>
         <sys_class_name>sys_script_client</sys_class_name>
         <sys_created_by>admin</sys_created_by>
-        <sys_created_on>2019-02-06 22:37:06</sys_created_on>
+        <sys_created_on>2019-07-18 16:44:51</sys_created_on>
         <sys_domain>global</sys_domain>
         <sys_domain_path>/</sys_domain_path>
-        <sys_id>87c4ce98db2323005796924bdb9619e8</sys_id>
+        <sys_id>cee583d42f32330078a1f3ecf699b62e</sys_id>
         <sys_mod_count>1</sys_mod_count>
-        <sys_name>Autofill Assigned To</sys_name>
+        <sys_name>If URL on submit</sys_name>
         <sys_overrides/>
         <sys_package display_value="UCD Shift Scheduler" source="x_113761_ucd_shift">7a5fd304db102300de3abd5139961929</sys_package>
         <sys_policy/>
         <sys_scope display_value="UCD Shift Scheduler">7a5fd304db102300de3abd5139961929</sys_scope>
-        <sys_update_name>sys_script_client_87c4ce98db2323005796924bdb9619e8</sys_update_name>
+        <sys_update_name>sys_script_client_cee583d42f32330078a1f3ecf699b62e</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2019-07-08 20:23:50</sys_updated_on>
+        <sys_updated_on>2019-07-18 16:58:58</sys_updated_on>
         <table>x_113761_ucd_shift_shifts</table>
-        <type>onLoad</type>
+        <type>onSubmit</type>
         <ui_type>10</ui_type>
         <view/>
     </sys_script_client>

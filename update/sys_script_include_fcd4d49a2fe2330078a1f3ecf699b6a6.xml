@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_script_include">
+    <sys_script_include action="INSERT_OR_UPDATE">
+        <access>package_private</access>
+        <active>true</active>
+        <api_name>x_113761_ucd_shift.DuplicateEntries</api_name>
+        <client_callable>true</client_callable>
+        <description/>
+        <name>DuplicateEntries</name>
+        <script><![CDATA[var DuplicateEntries = Class.create();
+DuplicateEntries.prototype = Object.extendsObject(global.AbstractAjaxProcessor, {
+	duplicate: function(){
+		var numberToDuplicate = this.getParameter("sysparm_number");
+		var start = this.getParameter("sysparm_start");
+		var end = this.getParameter("sysparm_end");
+		var assigned_to = this.getParameter("sysparm_assigned_to");
+		var assignment_group = this.getParameter("sysparm_assignment_group");
+		var manager = this.getParameter("sysparm_manager");
+		var number_of_shifts_to_be_created_in_advance = this.getParameter("sysparm_number_of_shifts_to_be_created_in_advance");
+		var type = this.getParameter("sysparm_type");
+		var mandatory = this.getParameter("sysparm_mandatory");
+		for(var i = 0; i < numberToDuplicate - 1; i++){
+			var newEntry = new GlideRecord("x_113761_ucd_shift_shifts");
+			newEntry.initialize();
+			newEntry.start = start;
+			newEntry.end = end;
+			newEntry.assigned_to = "";
+			newEntry.assignment_group = assignment_group;
+			newEntry.manager = manager;
+			newEntry.type = type;
+			newEntry.number_of_people_on_shift = numberToDuplicate;
+			newEntry.number_of_shifts_to_be_created_in_advance = number_of_shifts_to_be_created_in_advance;
+			newEntry.mandatory = mandatory;
+			newEntry.is_not_new = true;
+			newEntry.insert();
+		}
+	},
+    type: 'DuplicateEntries'
+});]]></script>
+        <sys_class_name>sys_script_include</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2019-07-11 22:43:27</sys_created_on>
+        <sys_id>fcd4d49a2fe2330078a1f3ecf699b6a6</sys_id>
+        <sys_mod_count>29</sys_mod_count>
+        <sys_name>DuplicateEntries</sys_name>
+        <sys_package display_value="UCD Shift Scheduler" source="x_113761_ucd_shift">7a5fd304db102300de3abd5139961929</sys_package>
+        <sys_policy>read</sys_policy>
+        <sys_scope display_value="UCD Shift Scheduler">7a5fd304db102300de3abd5139961929</sys_scope>
+        <sys_update_name>sys_script_include_fcd4d49a2fe2330078a1f3ecf699b6a6</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2019-07-17 18:54:38</sys_updated_on>
+    </sys_script_include>
+</record_update>
