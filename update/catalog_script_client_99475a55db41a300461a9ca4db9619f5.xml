@@ -38,11 +38,16 @@
 	if(trade) { // If the user requests a trade
 		g_form.setValue('u_type', 'trade');
 		g_form.setValue('u_trade_shifts', shiftid);
+		g_form.setReadOnly('u_trade_shifts', true);
+		g_form.setReadOnly('u_type', true);
+
 		
 	} else {
-
+		g_form.setReadOnly('u_type', true);
 		g_form.setValue('u_type', 'cover');
 		g_form.setValue('u_shifts', shiftid);
+		g_form.setReadOnly('u_shifts', true);
+
 	}
 	
 }]]></script>
@@ -52,7 +57,7 @@
         <sys_domain>global</sys_domain>
         <sys_domain_path>/</sys_domain_path>
         <sys_id>99475a55db41a300461a9ca4db9619f5</sys_id>
-        <sys_mod_count>62</sys_mod_count>
+        <sys_mod_count>64</sys_mod_count>
         <sys_name>If URL variables</sys_name>
         <sys_overrides/>
         <sys_package display_value="UCD Shift Scheduler" source="x_113761_ucd_shift">7a5fd304db102300de3abd5139961929</sys_package>
@@ -60,7 +65,7 @@
         <sys_scope display_value="UCD Shift Scheduler">7a5fd304db102300de3abd5139961929</sys_scope>
         <sys_update_name>catalog_script_client_99475a55db41a300461a9ca4db9619f5</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2018-10-22 21:16:09</sys_updated_on>
+        <sys_updated_on>2019-07-22 23:39:36</sys_updated_on>
         <table/>
         <type>onLoad</type>
         <ui_type>10</ui_type>

@@ -90,7 +90,8 @@
 			i++;
 		var URL = curURL.substring(0, i) + "service-now.com/sp?id=sc_cat_item&sys_id=2fe66f08db102300de3abd513996196e";
 		URL += "&shiftid=" + shift.sys_id;
-		window.open(URL);
+		//window.open(URL);
+		window.open(URL,'title', 'width=600, height=700');
 	};
 	
 	c.take = function(shift){
@@ -113,7 +114,8 @@
 			i++;
 		var URL = curURL.substring(0, i) + "service-now.com/sp?id=sc_cat_item&sys_id=2fe66f08db102300de3abd513996196e";
 		URL += "&coverid=" + shift.sys_id;
-		window.open(URL);
+		//window.open(URL);
+		window.open(URL,'title', 'width=600, height=700');
 	};
 	
 	c.onWidget = function(){
@@ -455,14 +457,14 @@ table {
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2018-09-11 18:02:12</sys_created_on>
         <sys_id>b52bf26cdb202300de3abd51399619b8</sys_id>
-        <sys_mod_count>1201</sys_mod_count>
+        <sys_mod_count>1203</sys_mod_count>
         <sys_name>Shift Scheduler</sys_name>
         <sys_package display_value="UCD Shift Scheduler" source="x_113761_ucd_shift">7a5fd304db102300de3abd5139961929</sys_package>
         <sys_policy/>
         <sys_scope display_value="UCD Shift Scheduler">7a5fd304db102300de3abd5139961929</sys_scope>
         <sys_update_name>sp_widget_b52bf26cdb202300de3abd51399619b8</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2019-07-19 22:01:38</sys_updated_on>
+        <sys_updated_on>2019-07-22 23:41:08</sys_updated_on>
         <template><![CDATA[<div class="panel panel-primary">
   <link rel="stylesheet" href="styles/retina_icons/retina_icons.css ">
   <!--Header-->

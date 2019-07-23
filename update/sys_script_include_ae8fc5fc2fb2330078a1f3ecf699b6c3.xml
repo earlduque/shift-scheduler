@@ -12,29 +12,46 @@ filterShifts.prototype = {
 		
 	},
 	
-	filterByGroup : function(){
-		var grMembers = new GlideRecord("sys_user_grmember");
-		grMember.addQuery("group", current.variables.assignment_group);
-		gs.addInfoMessage("RUNNING");
-		var members = [];
+	filterByGroup : function(group){
+		var grMember = new GlideRecord("sys_user_grmember");
+		grMember.addQuery("group", group);
+		grMember.query();
+		
+		var members = "";
 		while(grMember.next()){
-			members.push(grMember.getValue("user").toString() + ",");//Make sure right value
-		} 
+			members += "sys_id=" + grMember.getValue("user")+ "^NQ";//Make sure right value
+		}
 		return members;
 	},
-    type: 'filterShifts'
+	
+	//javascript:new x_113761_ucd_shift.filterShifts().filterForShifts(current.assignment_group, gs.getUserID());
+	filterForShifts : function(group, user){
+		var shifts= new GlideRecord("x_113761_ucd_shift_shifts");
+		shifts.addQuery("assignment_group", group);
+		shifts.addQuery("assigned_to", user);
+		shifts.query();
+		
+		var gotShifts = "";
+		while(shifts.next()){
+			gotShifts += "sys_id=" + shifts.getValue("sys_id")+ "^NQ";//Make sure right value
+		}
+		//gs.info(gotShifts);
+		return gotShifts ;
+	},
+	
+	type: 'filterShifts'
 };]]></script>
         <sys_class_name>sys_script_include</sys_class_name>
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2019-07-19 21:26:42</sys_created_on>
         <sys_id>ae8fc5fc2fb2330078a1f3ecf699b6c3</sys_id>
-        <sys_mod_count>11</sys_mod_count>
+        <sys_mod_count>50</sys_mod_count>
         <sys_name>filterShifts</sys_name>
         <sys_package display_value="UCD Shift Scheduler" source="x_113761_ucd_shift">7a5fd304db102300de3abd5139961929</sys_package>
         <sys_policy>read</sys_policy>
         <sys_scope display_value="UCD Shift Scheduler">7a5fd304db102300de3abd5139961929</sys_scope>
         <sys_update_name>sys_script_include_ae8fc5fc2fb2330078a1f3ecf699b6c3</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2019-07-19 23:47:53</sys_updated_on>
+        <sys_updated_on>2019-07-22 23:51:56</sys_updated_on>
     </sys_script_include>
 </record_update>

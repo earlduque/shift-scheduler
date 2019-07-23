@@ -56,20 +56,6 @@
 			newEntry.mandatory = mandatory;
 			newEntry.is_not_new = true;
 			newEntry.insert();
-			// 			var ga = new GlideAjax("DuplicateEntries");
-			
-			// 			ga.addParam('sysparm_name', 'duplicate');
-			// 			ga.addParam('sysparm_number', current.getValue("number_of_people_on_shift"));
-			// 			ga.addParam('sysparm_start', current.getValue("start"));
-			// 			ga.addParam('sysparm_end', current.getValue("end"));
-			// 			ga.addParam('sysparm_assigned_to', current.getValue("assigned_to"));
-			// 			ga.addParam('sysparm_assignment_group', current.getValue("assignment_group"));
-			// 			ga.addParam('sysparm_manager', current.getValue("manager"));
-			// 			ga.addParam('sysparm_number_of_shifts_to_be_created_in_advance', current.getValue("number_of_shifts_to_be_created_in_advance"));
-			// 			ga.addParam('sysparm_type', current.getValue("type"));
-			// 			ga.addParam('sysparm_mandatory', current.getValue("mandatory"));
-			
-			// 			ga.getXML();
 		}
 	}
 })(current, previous);]]></script>
@@ -79,7 +65,7 @@
         <sys_domain>global</sys_domain>
         <sys_domain_path>/</sys_domain_path>
         <sys_id>a755b1b32fe2330078a1f3ecf699b680</sys_id>
-        <sys_mod_count>20</sys_mod_count>
+        <sys_mod_count>21</sys_mod_count>
         <sys_name>Duplicate Templates</sys_name>
         <sys_overrides/>
         <sys_package display_value="UCD Shift Scheduler" source="x_113761_ucd_shift">7a5fd304db102300de3abd5139961929</sys_package>
@@ -87,7 +73,7 @@
         <sys_scope display_value="UCD Shift Scheduler">7a5fd304db102300de3abd5139961929</sys_scope>
         <sys_update_name>sys_script_a755b1b32fe2330078a1f3ecf699b680</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2019-07-17 19:17:14</sys_updated_on>
+        <sys_updated_on>2019-07-22 21:28:30</sys_updated_on>
         <template>is_not_new=true^EQ</template>
         <when>before</when>
     </sys_script>

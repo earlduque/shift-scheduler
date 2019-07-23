@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?><record_update table="sys_script_include">
     <sys_script_include action="INSERT_OR_UPDATE">
         <access>package_private</access>
-        <active>true</active>
+        <active>false</active>
         <api_name>x_113761_ucd_shift.DuplicateEntries</api_name>
         <client_callable>true</client_callable>
         <description/>
@@ -40,13 +40,13 @@ DuplicateEntries.prototype = Object.extendsObject(global.AbstractAjaxProcessor, 
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2019-07-11 22:43:27</sys_created_on>
         <sys_id>fcd4d49a2fe2330078a1f3ecf699b6a6</sys_id>
-        <sys_mod_count>29</sys_mod_count>
+        <sys_mod_count>30</sys_mod_count>
         <sys_name>DuplicateEntries</sys_name>
         <sys_package display_value="UCD Shift Scheduler" source="x_113761_ucd_shift">7a5fd304db102300de3abd5139961929</sys_package>
         <sys_policy>read</sys_policy>
         <sys_scope display_value="UCD Shift Scheduler">7a5fd304db102300de3abd5139961929</sys_scope>
         <sys_update_name>sys_script_include_fcd4d49a2fe2330078a1f3ecf699b6a6</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2019-07-17 18:54:38</sys_updated_on>
+        <sys_updated_on>2019-07-22 21:27:32</sys_updated_on>
     </sys_script_include>
 </record_update>
